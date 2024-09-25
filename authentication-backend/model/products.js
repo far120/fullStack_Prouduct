@@ -5,11 +5,14 @@ const productsschema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
-        maxlength: 50
+        maxlength: 50,
+        trim: true,
+        unique: true
     },
     description: {
         type: String,
         required: true,
+        trim: true,
         minlength: 10,
         maxlength: 200
     },

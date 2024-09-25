@@ -62,6 +62,15 @@ routes.post('/', addproducts , async (req, res) => {
           "status": httpresponse.errorCallback,
          "error": error.message
         });
+
+        const part = await Products.findOne({ name: req.body.name });
+        if (part) {
+            return res.status(400).json({
+                status: "error",
+                message: "Product with this name already exists"
+            });
+        }
+        
     
     try{
         const newproduct = new Products({
