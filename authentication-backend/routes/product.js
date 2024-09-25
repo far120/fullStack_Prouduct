@@ -2,6 +2,7 @@ const express = require('express')
 const joi = require('joi');
 const Products = require('../model/products');
 const httpresponse = require('../httpresponse');
+const addproducts = require('../middleware/addproducts');
 
 const routes = express.Router();
 
@@ -47,7 +48,7 @@ routes.get('/:id', async (req, res) => {
 
 // POST /api/products
 
-routes.post('/', async (req, res) => {
+routes.post('/', addproducts , async (req, res) => {
     const schema = joi.object({
         name: joi.string().min(3).max(50).required(),
         price: joi.number().min(0).required(),
@@ -87,7 +88,7 @@ routes.post('/', async (req, res) => {
 
     // PUT /api/products/:id
     
-    routes.put('/:id', async (req, res) => {
+    routes.put('/:id', addproducts, async (req, res) => {
         const schema = joi.object({
             name: joi.string().min(3).max(50).required(),
             price: joi.number().min(0).required(),
@@ -137,7 +138,7 @@ routes.post('/', async (req, res) => {
 
         // DELETE /api/products/:id
         
-        routes.delete('/:id', async (req, res) => {
+        routes.delete('/:id', addproducts ,async (req, res) => {
             try{
                 const products =  await Products.findByIdAndDelete(req.params.id);
                 if(products){
