@@ -9,21 +9,6 @@ const {validationtoken , adminserver} = require('../middleware/adminservervalida
 
 const routes = express.Router();
 
-// routes.get('/', async (req, res) => {
-//     try {
-//         const authentications = await Authentications.find().select("-password");
-
-//         const authenticationsWithTokens = await Promise.all(authentications.map(async (authentication) => {
-//             const token = jwt.sign({ _id: authentication._id }, process.env.TOKEN_SECRET, { expiresIn: '1h' });
-//             return { ...authentication._doc, token };
-//         }));
-
-//         res.json(authenticationsWithTokens);
-//     } catch (error) {
-//         res.status(404).send(error.message);
-//     }
-// });
-
 routes.get('/', adminserver ,async (req, res) => {
     try {
         const authentications = await Authentications.find().select("-password");
