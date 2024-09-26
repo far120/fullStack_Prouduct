@@ -6,8 +6,43 @@ const Authentications = require('../model/authentication')
 const Joi = require('joi')
 const {rolevalid } = require('../middleware/rolevalid');
 const {validationtoken , adminserver} = require('../middleware/adminservervalidationtoken');
+const httpresponse = require('../httpresponse');
 
 const routes = express.Router();
+
+/// multer
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        console.log(file)
+        cb(null, 'uploads')
+    },
+    filename: function (req, file, cb) {
+    const ext = file.mimetype.split('/')[1];
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)+`.${ext}`
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
+    
+  })
+  const fileFilter = (req, file, cb) => {
+    const typeoffile = file.mimetype.split('/')[0];
+    console.log("fgkgjfgk" + typeoffile)
+    if (typeoffile!== 'image') {
+        return cb({ "status":httpresponse.errorCallback , "erorr":'Only images are allowed!'}, false);
+    }
+    cb(null, true);
+  }
+
+
+  
+  const upload = multer({ 
+     storage ,
+     fileFilter
+   })
+
+
+  //////git all ////
 
 routes.get('/', adminserver ,async (req, res) => {
     try {
@@ -21,6 +56,7 @@ routes.get('/', adminserver ,async (req, res) => {
 
 
 
+
 routes.get('/:id', validationtoken , async (req, res) => {
     try {
         const authentication = await Authentications.findById(req.params.id).select("-password");
@@ -31,31 +67,43 @@ routes.get('/:id', validationtoken , async (req, res) => {
     }
 });
 
- routes.post('/', rolevalid ,async (req, res) => {
+ routes.post('/', upload.single('avatar') , rolevalid , async (req, res) => {
     const schema = Joi.object({
         name: Joi.string().required().min(3).max(50).trim(),
         email: Joi.string().required().email().trim(),
         password: Joi.string().required().min(8).max(16).trim(), 
         role: Joi.string(),
-    })
+        avatar: Joi.string(), 
+      
+    }) 
+    
     const { error } = schema.validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
+    console.log(1)
 
-    const user = await Authentications.findOne({ email: req.body.email})
+    var user = await Authentications.findOne({ email: req.body.email})
     if(user) return res.status(400).send("User already exists");
 
+     user = await Authentications.findOne({ name: req.body.name})
+    if(user) return res.status(400).send("Username already exists");
+
     
+
     const newauthentication = new Authentications({
         name: req.body.name,
         email: req.body.email,
         // password: bcrypt.hashSync(req.body.password, 16),
         password : req.body.password,
         role:req.body.role,
+        // avatar: req.body.avatar,
+        avatar: req.file.filename
     })
+
+
     try {
         console.log(req.body);
        const authentication = await newauthentication.save();
-        const token = jwt.sign({_id: authentication._id , role:authentication.role  }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
+        const token = jwt.sign({_id: authentication._id , role:authentication.role , avatar:authentication.avatar  }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
         authentication.token = token;
         await authentication.save();
         // const token = newauthentication.genratetoken();
@@ -131,7 +179,7 @@ routes.post('/login', async (req, res) => {
     const validPassword = req.body.password === user.password || bcrypt.compareSync(req.body.password, user.password)
     if(!validPassword) return res.status(400).send("Invalid email or password");
 
-    const token = jwt.sign({_id: user._id , role:user.role  }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
+    const token = jwt.sign({_id: user._id , role:user.role ,  avatar:user.avatar  }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
     user.token = token;
     await user.save();
     

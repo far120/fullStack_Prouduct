@@ -9,8 +9,8 @@ export default function SignUp() {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
     const [cpassword, setcpassword] = useState("");
+    const [avatar , setavatar] = useState("");    
     const [accept, setaccept] = useState(false);
-    
     function handleNameChange(e) {
         setname(e.target.value);
     }
@@ -23,23 +23,39 @@ export default function SignUp() {
     function handleCpasswordChange(e) {
         setcpassword(e.target.value);
     }
+    function handleImageChange(e) {
+        const file = e.target.files[0];
+        if (file)
+            setavatar(file); 
 
+    }
+    console.log(avatar);
+    
     async function handleSubmit(e) {
         e.preventDefault();
         setaccept(true);
         if (name === "" || password.length < 8 || password !== cpassword || email === "") {
             return false;
         }
+        
+     
          axios.post("http://localhost:2004/api/authentication", {
                 name,  
                 email,
-                password
+                password,
+                avatar
+            },
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
             })
             .then(response => {
                 navigate("/login");
             })
             .catch(error => {
                 console.error('Error:', error);
+                alert("Email or password not valid")
             });
     
     }
@@ -94,6 +110,14 @@ export default function SignUp() {
                     {accept && cpassword !== password && (
                         <p className="error">Passwords do not match</p>
                     )}
+                   <label>Profile Picture:</label>
+                    <input
+                        type="file"
+                        onChange={handleImageChange}
+                        accept="image/*"
+                    />
+
+
                     <div className='btns'>
                     <input type="submit" value="Register" />
                     </div>

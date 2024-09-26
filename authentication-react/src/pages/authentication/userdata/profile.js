@@ -33,6 +33,7 @@ export default function Profile() {
                 <div className="user-card" key={user._id}>
                     <hr className="divider" />
                     <h2 className="user-id">{user._id}</h2>
+                    <img className="user-image" src={`http://localhost:2004/uploads/${user.avatar}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
                     <p className="user-name">{user.name}</p>
                     <p className="user-email">{user.email}</p>
                     <div className="button-group">

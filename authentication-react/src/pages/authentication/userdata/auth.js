@@ -49,6 +49,7 @@ export default function Auth() {
                     <div className="user-card" key={u._id}>
                         <hr className="divider" />
                         <h2 className="user-id">{u._id}</h2>
+                        <img className="user-image" src={`http://localhost:2004/uploads/${u.avatar}`}  alt="User Avatar" style={{ width: "200px", height: "250px", objectFit: "cover" }} />
                         <p className="user-name">{u.name}</p>
                         <p className="user-email">{u.email}</p>
                         <div className="button-group">

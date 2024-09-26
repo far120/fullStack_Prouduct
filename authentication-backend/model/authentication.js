@@ -7,6 +7,7 @@ const authenticationscehme = new mongoose.Schema({
     name:{
         type:String,
         required:true,
+        unique:true,
         minlength:3,
         maxlength:50,
         trim:true
@@ -28,16 +29,19 @@ const authenticationscehme = new mongoose.Schema({
     },
     token:{
         type:String
+    },
+    avatar:{
+        type:String,
+        default: "uploads/download.png"
+  
     }
+
 },
     {
         timestamps:true
     })
 
-    // authenticationscehme.methods.genratetoken = function()
-    // {
-    //     return jwt.sign({_id: this._id , role:this.role  }, process.env.TOKEN_SECRET, { expiresIn: '7d' });
-    // }
+
 
 const Authentications = mongoose.model('Authentications', authenticationscehme);
 

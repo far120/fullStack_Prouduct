@@ -12,6 +12,7 @@ export default function Update() {
     const { id } = useParams(); 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
+    const [show, setShow] = useState("");
     const [accept, setAccept] = useState(false);
 
     useEffect(() => {
@@ -28,6 +29,7 @@ export default function Update() {
                 const userData = response.data;
                 setName(userData.name);
                 setEmail(userData.email);
+                setShow(userData.avatar);
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
@@ -76,6 +78,7 @@ export default function Update() {
 
     return (
         <div className="back-image">
+            <img className="user-image" src={`http://localhost:2004/uploads/${show}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
             <div className="pa">
                 <form className="forms" onSubmit={handleSubmit}>
                     <h2>Update User</h2>

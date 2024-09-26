@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();
+const path = require('path');
 
 
 
@@ -29,6 +30,7 @@ app.use(cors());
 app.use(logger);
 app.use('/api/authentication', Authentications);
 app.use('/api/products', Product);
+app.use('/uploads', express.static(path.join(__dirname,'uploads')))
 app.all('*', (req, res) => {
     res.status(404).send({ status: "error",  msg: "Not Found" });
 });
