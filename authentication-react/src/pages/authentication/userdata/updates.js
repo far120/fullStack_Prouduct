@@ -16,7 +16,7 @@ export default function Update() {
 
     useEffect(() => {
         // Fetch user data on component mount and populate form fields
-        axios.get(`http://localhost:2024/api/authentication/${id}`,
+        axios.get(`http://localhost:2004/api/authentication/${id}`,
             {
                 headers: {
                     'Authorization': ` ${value}`
@@ -54,7 +54,7 @@ export default function Update() {
 
         // Send PUT request to update user details
 
-        axios.put(`http://localhost:2024/api/authentication/${id}`, {
+        axios.put(`http://localhost:2004/api/authentication/${id}`, {
             name: name,
             email: email,
            

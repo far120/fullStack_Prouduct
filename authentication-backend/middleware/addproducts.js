@@ -1,10 +1,13 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const  addproducts = (req , res , next)=>{
     const token = req.headers['authorization'];
     if (token) {
         try{
-            const verified = jwt.verify(token , "secret");
+            const verified = jwt.verify(token ,process.env.TOKEN_SECRET );
             req.user = verified;
             if (req.user.role =="admin" || req.user.role== "adminserver") {
             next();

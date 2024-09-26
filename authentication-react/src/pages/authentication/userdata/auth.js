@@ -11,7 +11,7 @@ export default function Auth() {
     const [user, setUser] = useState([]);
     const [userToDelete, setUserToDelete] = useState(null);
     useEffect(() => {
-        axios.get("http://localhost:2024/api/authentication",{
+        axios.get("http://localhost:2004/api/authentication",{
             headers: {
                 'Authorization': ` ${value}`
             }
@@ -26,7 +26,7 @@ export default function Auth() {
     }, [value]);
 
     const remove = (id) => {
-        axios.delete(`http://localhost:2024/api/authentication/${id}`,{
+        axios.delete(`http://localhost:2004/api/authentication/${id}`,{
             headers: {
                 'Authorization': ` ${value}`
             }
@@ -78,6 +78,6 @@ export default function Auth() {
 )}
         </div>
     );
-    console.log(userToDelete.myname);
+ 
   
 }

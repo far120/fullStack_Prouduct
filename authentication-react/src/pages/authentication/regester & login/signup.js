@@ -30,7 +30,7 @@ export default function SignUp() {
         if (name === "" || password.length < 8 || password !== cpassword || email === "") {
             return false;
         }
-         axios.post("http://localhost:2024/api/authentication", {
+         axios.post("http://localhost:2004/api/authentication", {
                 name,  
                 email,
                 password

@@ -13,7 +13,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:2024/api/authentication/${id}`, {
+            axios.get(`http://localhost:2004/api/authentication/${id}`, {
                 headers: {
                     'Authorization': ` ${value}`
                 }

@@ -1,4 +1,7 @@
 const jwt = require('jsonwebtoken');
+const dotenv = require('dotenv');
+dotenv.config();
+
 
 const validationtoken = (req, res, next) => {
     const token = req.headers['authorization']; 
@@ -6,7 +9,7 @@ const validationtoken = (req, res, next) => {
         console.log(token);
 
     try {
-        const verified = jwt.verify(token , "secret"); 
+        const verified = jwt.verify(token ,process.env.TOKEN_SECRET ); 
         req.user = verified;
         if (req.params.id == req.user._id || req.user.role =="adminserver") 
             next();
@@ -27,7 +30,7 @@ const adminserver = (req, res, next) => {
         console.log(token);
 
     try {
-        const verified = jwt.verify(token, "secret"); 
+        const verified = jwt.verify(token, process.env.TOKEN_SECRET); 
         req.user = verified;
         if (req.user.role =="adminserver") 
             next();
