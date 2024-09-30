@@ -33,6 +33,7 @@ export default function Update() {
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
+                alert(error.response.data)
             });
     }, [id]);
 
@@ -67,11 +68,16 @@ export default function Update() {
             }
         })
         .then(response => {
-            console.log('User updated successfully:', response.data);
-            navigate('/'); 
+            if (response.status==200 && response.status==201) {
+                alert('User updated successfully');
+            navigate('/');
+            } else {
+                alert('Failed to update user');
+            } 
         })
         .catch(error => {
             console.error('Error updating user:', error);
+            alert(error.response.data);
         });
 
 }

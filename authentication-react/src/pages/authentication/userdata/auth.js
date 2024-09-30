@@ -21,6 +21,7 @@ export default function Auth() {
         })
         .catch(error => {
             console.log(error);
+            alert(error.response.data)
         });
         
     }, [value]);
@@ -36,6 +37,7 @@ export default function Auth() {
         })
         .catch(error => {
             console.log(error);
+            alert(error.response.data)
         });
     }
    

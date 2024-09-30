@@ -51,11 +51,14 @@ export default function SignUp() {
                 }
             })
             .then(response => {
-                navigate("/login");
+                if (response.status==200 && response.status==201){
+                    alert('User Registration successful! Please login.')
+                    navigate("/login");
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
-                alert("Email or password not valid")
+                alert(error.response.data)
             });
     
     }

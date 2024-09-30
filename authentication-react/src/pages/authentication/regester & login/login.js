@@ -33,7 +33,7 @@ export default function Login() {
             navigate('/'); 
         })
         .catch((error) => {
-            alert("email or password not valid")
+            alert(error.response.data)
             console.error('Error:', error);
         });
     }
