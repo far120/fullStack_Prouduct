@@ -118,6 +118,7 @@ routes.get('/:id', validationtoken , async (req, res) => {
 });
 
 routes.put('/:id', validationtoken , async (req, res) => {
+    const { name, email, password, role } = req.body;
     const schema = Joi.object({
         name: Joi.string().min(3).max(50).trim(),
         email: Joi.string().email().trim(),
@@ -131,6 +132,22 @@ routes.put('/:id', validationtoken , async (req, res) => {
     //     const salt = await bcrypt.genSalt(17);
     //     req.body.password = await bcrypt.hash(req.body.password ,salt)
     //     }
+
+    
+
+    const existingUserByName = await Authentications.findOne({name});
+        if (existingUserByName && existingUserByName._id.toString() !== req.params.id) {
+            return res.status(400).send("Username already exists");
+        }
+
+        // Check if email exists and exclude current user by ID
+        const existingUserByEmail = await Authentications.findOne({ email });
+        if (existingUserByEmail && existingUserByEmail._id.toString() !== req.params.id) {
+            return res.status(400).send("Email already exists");
+        }
+
+
+
 
     const authentication = await Authentications.findByIdAndUpdate(req.params.id, 
           {

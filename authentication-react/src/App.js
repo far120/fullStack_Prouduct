@@ -6,9 +6,13 @@ import ShowAuth from './pages/authentication/userdata/show';
 import Update from './pages/authentication/userdata/updates';
 import NavBar from './pages/authentication/navbar/nav';
 import Profile from './pages/authentication/userdata/profile';
-import Home from './pages/homepage/home';
+import Home from './pages/website pages/home page/home';
 import  useTokenDecoder  from './pages/authentication/jwt/useTokenDecoder';
-import NotFound from './pages/homepage/NotFound';
+import NotFound from './pages/website pages/validation/NotFound';
+import Footer from './pages/website pages/footer/footer'
+import Aside from './pages/website pages/aside/aside';
+import Maincategories from './pages/website pages/categories/maincategories';
+
 
 function App() {
   const tokendata = useTokenDecoder();
@@ -23,6 +27,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
+    
+{window.localStorage.getItem("token")?(
+<>
         {role == "adminserver" ? (
           <>
             <Route path="/auth" element={<Auth />} />
@@ -34,8 +41,17 @@ function App() {
 
         <Route path="/updates/:id" element={<Update />} /> 
         <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/aside" element={<Aside />} /> */}
+        <Route path="/maincategories" element={<Maincategories />} />
         <Route path="*" element={<NotFound />} /> 
+</>
+):
+(
+  <Route path="*" element={<NotFound />} /> 
+
+)}
       </Routes>
+      <Footer/>
     </>
   );
 }

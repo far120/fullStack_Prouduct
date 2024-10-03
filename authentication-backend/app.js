@@ -20,7 +20,6 @@ const app = express();
 
 // routes
 const Authentications = require('./routes/authentication');
-const Product = require('./routes/product');
 const logger = require('./middleware/logger');
 
 
@@ -29,16 +28,10 @@ app.use(express.json());
 app.use(cors());
 app.use(logger);
 app.use('/api/authentication', Authentications);
-app.use('/api/products', Product);
 app.use('/uploads', express.static(path.join(__dirname,'uploads')))
 app.all('*', (req, res) => {
     res.status(404).send({ status: "error",  msg: "Not Found" });
 });
-
-
-
-
-
 
 
 app.get('/', (req, res) => {

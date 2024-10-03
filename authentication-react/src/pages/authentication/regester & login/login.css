@@ -4,11 +4,14 @@
 }
 
 .back-image {
-  background-image: url("./images/pngtree-a-conceptual-illustration-of-web-design-development-and-seo-optimization-in-image_13584944.png");
+  background-image: url("./images/blue-copy-space-digital-background_23-2148821698.avif");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  min-height: 100vh; 
+  height: 100vh;
+  min-height: fit-content;
+  padding-bottom: 40px;
+
 }
 
 .cards {
@@ -33,14 +36,14 @@
   justify-content: center;
 }
 
-input {
+.forms input {
   width: 100%; 
   margin-bottom: 15px; 
   padding: 10px; 
   border-radius: 8px;
   border: 1px solid #ccc;
 }
-input[type="submit"], input[type="reset"], .btn {
+.forms input[type="submit"], input[type="reset"], .btn {
   padding: 10px 20px;
   border: none;
   border-radius: 8px;

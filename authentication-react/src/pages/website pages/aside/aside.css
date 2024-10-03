@@ -1,0 +1,66 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 300px;
+  margin: 20px auto;
+}
+
+  .aside h1 {
+    font-size: 16px;
+    color: #333;
+    margin-top: 40px;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+   
+  }
+  
+  .aside_part1 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5px;
+    overflow-y:scroll;
+    height: 200px; 
+    width: 250px;
+    padding: 10px 40px;
+  }
+  
+  .checkbox {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-bottom: 10px;
+   
+  }
+  
+  .lablecheck {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    gap: 8px;
+  }
+  
+  .lablecheck input[type="checkbox"] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .price-values {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+  }
+  
+  .rating {
+    font-size: 24px;
+    color: #f39c12; /* Color for stars */
+  }
+  

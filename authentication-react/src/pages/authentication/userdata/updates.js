@@ -68,12 +68,10 @@ export default function Update() {
             }
         })
         .then(response => {
-            if (response.status==200 && response.status==201) {
-                alert('User updated successfully');
+            
+            alert('User updated successfully');
             navigate('/');
-            } else {
-                alert('Failed to update user');
-            } 
+        
         })
         .catch(error => {
             console.error('Error updating user:', error);
