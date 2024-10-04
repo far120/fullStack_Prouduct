@@ -57,7 +57,7 @@ export default function Update() {
 
         // Send PUT request to update user details
 
-        axios.put(`http://localhost:2004/api/authentication/${id}`, {
+        axios.put(`http://localhost:2004api/authentication/${id}`, {
             name: name,
             email: email,
            
@@ -82,7 +82,7 @@ export default function Update() {
 
     return (
         <div className="back-image">
-            <img className="user-image" src={`http://localhost:2004/uploads/${show}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
+            <img className="user-image" src={`http://localhost:2004/images/uploads/${show}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
             <div className="pa">
                 <form className="forms" onSubmit={handleSubmit}>
                     <h2>Update User</h2>

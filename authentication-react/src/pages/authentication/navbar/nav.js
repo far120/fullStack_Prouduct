@@ -101,7 +101,7 @@ function Top() {
             aria-expanded="false"
           >
             <img
-              src={`http://localhost:2004/uploads/${avatar}`}
+              src={`http://localhost:2004/images/uploads/${avatar}`}
               alt="Profile"
               className="profile-img"
             />

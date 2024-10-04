@@ -20,6 +20,11 @@ const app = express();
 
 // routes
 const Authentications = require('./routes/authentication');
+const Category = require('./routes/category');
+const Products = require('./routes/prouducts');
+const reviewRouter = require('./routes/reviwes');
+const wishlist = require('./routes/wishlist');
+const cart = require('./routes/cart');
 const logger = require('./middleware/logger');
 
 
@@ -28,7 +33,13 @@ app.use(express.json());
 app.use(cors());
 app.use(logger);
 app.use('/api/authentication', Authentications);
-app.use('/uploads', express.static(path.join(__dirname,'uploads')))
+app.use('/api/category', Category );
+app.use('/api/products' , Products);
+app.use('/images/uploads', express.static(path.join(__dirname,'images/uploads')))
+app.use('/images/products', express.static(path.join(__dirname,'images/products')))
+app.use('/api/products', reviewRouter);
+app.use('/api/wishlist', wishlist);
+app.use('/api/cart', cart);
 app.all('*', (req, res) => {
     res.status(404).send({ status: "error",  msg: "Not Found" });
 });
