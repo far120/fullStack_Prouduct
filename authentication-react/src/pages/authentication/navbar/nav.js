@@ -8,7 +8,15 @@ import images from "./img/gradient-instagram-shop-logo-template_23-2149704603.av
 const NavBar = () => {
   const last =useRef()
   const { value, setValue } = useContext(Mycontext);
+  const [links , setlinks] = useState([])
   const navigate = useNavigate();
+
+
+  useEffect(() => {
+    fetch("http://localhost:2004/api/category")
+    .then(res => res.json())
+    .then(data => setlinks(data))
+  },[]);
 
   const userData = useTokenDecoder();
   const role = userData?.role;
@@ -93,7 +101,7 @@ function Top() {
         ) : (
           <div className="dropdown">
           <Link
-            to="/fashion" 
+            to="/" 
             className="links dropdown-toggle"
             role="button"
             id="fashionDropdown"
@@ -127,152 +135,39 @@ function Top() {
     <div className={`part2 ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="navlink">
         <Link to="/" className="links">Home</Link>
-
-        {/* FASHION Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/fashion" 
-            className="links dropdown-toggle"
-            role="button"
-            id="fashionDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            FASHION
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="fashionDropdown">
-            <li><Link className="dropdown-item" to="/fashion/men">Men</Link></li>
-            <li><Link className="dropdown-item" to="/fashion/women">Women</Link></li>
-            <li><Link className="dropdown-item" to="/fashion/kids">Kids</Link></li>
-          </ul>
-        </div>
-
-        {/* ELECTRONICS Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/products"
-            className="links dropdown-toggle"
-            role="button"
-            id="electronicsDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            ELECTRONICS
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="electronicsDropdown">
-            <li><Link className="dropdown-item" to="/electronics/computers">Computers</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/TV">TV</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/mobiles">Mobiles</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/laptops">Laptops</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/tablets">Tablets</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/cameras">Cameras</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/headphones">Headphones</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/watches">Watches</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/home-audio">Home Audio</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/gaming">Gaming</Link></li>
-            <li><Link className="dropdown-item" to="/electronics/home-electronics">Home Electronics</Link></li>
-          </ul>
-        </div>
-        {/* BEAUTY  Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/beauty"
-            className="links dropdown-toggle"
-            role="button"
-            id="beautyDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            BEAUTY 
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="beautyDropdown">
-            <li><Link className="dropdown-item" to="/beauty/makeup">Makeup</Link></li>
-            <li><Link className="dropdown-item" to="/beauty/skincare">Skincare</Link></li>
-            <li><Link className="dropdown-item" to="/beauty/hair">Hair</Link></li>
-          </ul>
-        </div>
-        {/* ACCESSORIES Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/accessories"
-            className="links dropdown-toggle"
-            role="button"
-            id="accessoriesDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            ACCESSORIES
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="accessoriesDropdown">
-            <li><Link className="dropdown-item" to="/accessories/jewellery">Jewellery</Link></li>
-            <li><Link className="dropdown-item" to="/accessories/clothing">Clothing</Link></li>  
-          </ul>
-        </div>
-        {/* HEALTH Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/health"
-            className="links dropdown-toggle"
-            role="button"
-            id="healthDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            HEALTH
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="healthDropdown">
-            <li><Link className="dropdown-item" to="/health/medicines">Medicines</Link></li>
-            <li><Link className="dropdown-item" to="/health/supplements">Supplements</Link></li>
-            </ul>
-        </div>
-        {/* GROSARIES Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/groceries"
-            className="links dropdown-toggle"
-            role="button"
-            id="groceriesDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            GROCERY
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="groceriesDropdown">
-            <li><Link className="dropdown-item" to="/groceries/vegetables">Vegetables</Link></li>
-            <li><Link className="dropdown-item" to="/groceries/fruits">Fruits</Link></li>
-            <li><Link className="dropdown-item" to="/groceries/meat">Meat</Link></li>
-            <li><Link className="dropdown-item" to="/groceries/dairy">Dairy</Link></li>
-            <li><Link className="dropdown-item" to="/groceries/bakery">Bakery</Link></li>
-            <li><Link className="dropdown-item" to="/groceries/snacks">Snacks</Link></li>
-          </ul>
-  
-        </div>
-        {/* BOOKs Dropdown */}
-        <div className="dropdown">
-          <Link
-            to="/books"
-            className="links dropdown-toggle"
-            role="button"
-            id="booksDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            BOOKS
-          </Link>
-          <ul className="dropdown-menu" aria-labelledby="booksDropdown">
-            <li><Link className="dropdown-item" to="/books/fiction">Fiction</Link></li>
-            <li><Link className="dropdown-item" to="/books/non-fiction">Non-Fiction</Link></li>
-            <li><Link className="dropdown-item" to="/books/history">History</Link></li>
-            <li><Link className="dropdown-item" to="/books/science">Science</Link></li>
-            <li><Link className="dropdown-item" to="/books/politics">Politics</Link></li>
-            </ul>
-        </div>
-       
+        {Array.isArray(links) && links.length > 0 ? (
+          links.map((item) => (
+            <div className="dropdown" key={item._id}>
+              <Link
+                to={`/${item.name}`}
+                className="links dropdown-toggle"
+                role="button"
+                id={`${item.name}Dropdown`}
+                aria-expanded="false"
+              >
+                {item.name}
+              </Link>
+              <ul className="dropdown-menu" aria-labelledby={`${item.name}Dropdown`}>
+                {item.subcategory.map((subcategory, index) => (
+                  <li key={index}>
+                    <Link className="dropdown-item" to={`/${item.name}/${subcategory}`}>
+                      {subcategory}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        ) : (
+          <p>No links available</p>
+        )}
       </div>
     </div>
-    <button onClick={Top} ref={last} className="topbtn"><i className="fas fa-arrow-up"></i></button>
-    </div>
-  );
-};
+    <button onClick={Top} ref={last} className="topbtn">
+      <i className="fas fa-arrow-up"></i>
+    </button>
+  </div>
+)
+}
 
 export default NavBar;

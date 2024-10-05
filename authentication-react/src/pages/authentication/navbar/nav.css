@@ -168,3 +168,6 @@ border-bottom: 2px solid #ccc;
 
   
 }
+.dropdown:hover .dropdown-menu {
+  display: block;
+}

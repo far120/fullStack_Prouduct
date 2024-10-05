@@ -16,14 +16,10 @@ const cartSchema = new mongoose.Schema({
             type: Number,
             default:1,
             min: 1,
-        },
-        total_price: {
-            type: Number,
-            required: true,
         }
     }],
 }, { timestamps: true });
 
-const cart = mongoose.model('cart', cartSchema);
+const Cart = mongoose.model('cart', cartSchema);
 
-module.exports = cart;
+module.exports = Cart;
