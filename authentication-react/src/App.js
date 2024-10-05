@@ -12,6 +12,12 @@ import NotFound from './pages/website pages/validation/NotFound';
 import Footer from './pages/website pages/footer/footer'
 import Aside from './pages/website pages/aside/aside';
 import Maincategories from './pages/website pages/categories/maincategories';
+import Clothes from './pages/website pages/categories/clothes/clothes';
+import Man from './pages/website pages/categories/clothes/subcategory/man';
+import Woman from './pages/website pages/categories/clothes/subcategory/woman';
+import Boy from './pages/website pages/categories/clothes/subcategory/boy';
+import Girl from './pages/website pages/categories/clothes/subcategory/girl';
+
 
 
 function App() {
@@ -43,6 +49,12 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* <Route path="/aside" element={<Aside />} /> */}
         <Route path="/maincategories" element={<Maincategories />} />
+        <Route path="/clothes" element={<Clothes />} />
+        <Route path="clothes/man" element={<Man />} />
+        <Route path="clothes/woman" element={<Woman />} />
+        <Route path="clothes/boy" element={<Boy />} />
+        <Route path="clothes/girl" element={<Girl />} />
+
         <Route path="*" element={<NotFound />} /> 
 </>
 ):

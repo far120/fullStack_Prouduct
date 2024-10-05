@@ -71,7 +71,7 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
     stock : joi.number().required().min(1),
     // image : joi.string(),
     category: joi.string().required(),
-    subcategory: joi.array().items(joi.string()),
+    subcategory: joi.string().required(),
 });
 
     const { error } = schema.validate(req.body);
@@ -114,7 +114,7 @@ router.put('/:id/:userid', addproducts , upload.single('image'), async (req, res
     stock : joi.number().min(1),
     image : joi.string(),
     category: joi.string(),
-    subcategory: joi.array().items(joi.string()).optional()
+    subcategory: joi.string(),
 });
 
 const { error } = schema.validate(req.body);
