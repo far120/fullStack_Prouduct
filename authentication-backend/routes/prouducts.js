@@ -64,7 +64,7 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
   const admin = req.params.userid;
   console.log(admin)
     const schema = joi.object({
-    title : joi.string().required().min(3).max(50),
+    title : joi.string().required().min(3).max(500),
     description : joi.string().required().min(10),
     price : joi.number().required(),
     discount : joi.number().required().min(0).max(100),
@@ -100,14 +100,14 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
       await product.save();
       res.send(product);
     } catch (error) {
-      res.status(500).send('Server error');
+      res.status(500).send(error.message);
     }
   });
 
 router.put('/:id/:userid', addproducts , upload.single('image'), async (req, res) => {
   const admin = req.params.userid;
     const schema = joi.object({
-    title : joi.string().min(3).max(50),
+    title : joi.string().min(3).max(500),
     description : joi.string().min(10),
     price : joi.number(),
     discount : joi.number().min(0).max(100),

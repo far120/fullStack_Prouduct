@@ -12,12 +12,15 @@ const NavBar = () => {
   const navigate = useNavigate();
 
 
+// get category to be link
+
   useEffect(() => {
     fetch("http://localhost:2004/api/category")
     .then(res => res.json())
     .then(data => setlinks(data))
   },[]);
 
+// token image and role
   const userData = useTokenDecoder();
   const role = userData?.role;
   const avatar = userData?.avatar;

@@ -1,4 +1,7 @@
 import { Link, Route, Routes } from 'react-router-dom';
+import { Mycontext } from './pages/authentication/regester & login/context';
+import { useContext, useEffect } from 'react';
+import Links from './pages/website pages/validation/links';
 import Login from './pages/authentication/regester & login/login';
 import Signup from './pages/authentication/regester & login/signup';
 import Auth from './pages/authentication/userdata/auth';
@@ -12,15 +15,13 @@ import NotFound from './pages/website pages/validation/NotFound';
 import Footer from './pages/website pages/footer/footer'
 import Aside from './pages/website pages/aside/aside';
 import Maincategories from './pages/website pages/categories/maincategories';
-import Clothes from './pages/website pages/categories/clothes/clothes';
-import Man from './pages/website pages/categories/clothes/subcategory/man';
-import Woman from './pages/website pages/categories/clothes/subcategory/woman';
-import Boy from './pages/website pages/categories/clothes/subcategory/boy';
-import Girl from './pages/website pages/categories/clothes/subcategory/girl';
+import Categorypages from './pages/website pages/categories/categorypages';
+
 
 
 
 function App() {
+  const{ params , setparams} = useContext(Mycontext)
   const tokendata = useTokenDecoder();
   const role = tokendata?.role; 
   console.log(role);
@@ -28,10 +29,12 @@ function App() {
   return (
     <>
       <NavBar />
+      <Links/>
       <Routes>
         <Route exact path="/" element={<Home />} /> 
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+
 
     
 {window.localStorage.getItem("token")?(
@@ -49,11 +52,8 @@ function App() {
         <Route path="/profile" element={<Profile />} />
         {/* <Route path="/aside" element={<Aside />} /> */}
         <Route path="/maincategories" element={<Maincategories />} />
-        <Route path="/clothes" element={<Clothes />} />
-        <Route path="clothes/man" element={<Man />} />
-        <Route path="clothes/woman" element={<Woman />} />
-        <Route path="clothes/boy" element={<Boy />} />
-        <Route path="clothes/girl" element={<Girl />} />
+        <Route path={`/${params}`} element={<Categorypages />} />
+   
 
         <Route path="*" element={<NotFound />} /> 
 </>

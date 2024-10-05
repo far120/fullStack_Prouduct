@@ -4,7 +4,7 @@ export default function Categorieslink(){
     const data = [
         {
             src:"./img/COLOURBOX22466387.webp",
-            title:"FASHION"
+            title:"CLOTHES"
         },
         {
             src:"./img/beuty.jpg",

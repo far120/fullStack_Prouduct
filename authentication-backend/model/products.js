@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Reviews = require('./reviwes');
 const productSchema = new mongoose.Schema({
     user_id:{
         // type: mongoose.Schema.Types.ObjectId,
@@ -10,7 +11,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 3,
-        maxlength: 50
+        maxlength: 500
     },
     description: {
         type: String,
