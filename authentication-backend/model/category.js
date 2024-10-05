@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema({
         required: true,
         enum: ['electronics', 'clothes', 'books', 'health', 'beauty', 'grocery', 'fashion']  
     },
-    subcategory:{
+    subcategory:{ 
         type:[String],
         required: true,
         // enum: ['men' , 'women' , 'kids']

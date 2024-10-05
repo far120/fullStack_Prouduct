@@ -131,7 +131,7 @@ function Top() {
         )}
       </div>
       <hr />
-    </nav>
+    </nav> 
     <div className={`part2 ${isCollapsed ? 'collapsed' : ''}`}>
       <div className="navlink">
         <Link to="/" className="links">Home</Link>
