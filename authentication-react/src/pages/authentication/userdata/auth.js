@@ -51,12 +51,13 @@ export default function Auth() {
                     <div className="user-card" key={u._id}>
                         <hr className="divider" />
                         <h2 className="user-id">{u._id}</h2>
-                        <img className="user-image" src={`http://localhost:2004/images/uploads/${u.avatar}`}  alt="User Avatar" style={{ width: "200px", height: "250px", objectFit: "cover" }} />
-                        <p className="user-name">{u.name}</p>
-                        <p className="user-email">{u.email}</p>
+                        <img className="user-image" src={`http://localhost:2004/images/uploads/${u.avatar}`}  alt="User Avatar" style={{ width: "200px", height: "250px", objectFit: "cover" }} />  
+                        <p className="user-name">Role: {u.role}</p>
+                        <p className="user-name">Name: {u.name}</p>
+                        <p className="user-email">Email: {u.email}</p>
                         <div className="button-group">
-                            <button className="btn"><Link to={`/auth/${u._id}`}>Show</Link></button>
-                            <button className="btn"><Link to={`/updates/${u._id}`}>Update Auth</Link></button>
+                        <Link to={`/auth/${u._id}`}>  <button className="btn">Show</button></Link>
+                        <Link to={`/updates/${u._id}`}><button className="btn">Update Auth</button></Link>
                             {/* <button className="btn delete-btn" onClick={() => remove(u._id)}>Delete</button> */}
                             <button className="btn delete-btn" onClick={() => setUserToDelete({id: u._id ,myname: u.name})}>Delete</button>
                             
