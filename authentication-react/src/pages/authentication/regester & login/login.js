@@ -62,7 +62,7 @@ export default function Login() {
                     {password.length < 8 && accept && (
                         <p>Password must be greater than 8 characters</p>
                     )}
-                    <div className="btns">
+                    <div className="btnl">
                     <input type="submit" value="Submit" />
                    
                     </div>

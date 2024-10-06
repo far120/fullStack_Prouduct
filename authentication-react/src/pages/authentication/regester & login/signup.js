@@ -121,7 +121,7 @@ export default function SignUp() {
                     />
 
 
-                    <div className='btns'>
+                    <div className='btnl'>
                     <input type="submit" value="Register" />
                     </div>
                 </form>

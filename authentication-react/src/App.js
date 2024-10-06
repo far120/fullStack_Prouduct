@@ -16,6 +16,9 @@ import Footer from './pages/website pages/footer/footer'
 import Aside from './pages/website pages/aside/aside';
 import Maincategories from './pages/website pages/categories/maincategories';
 import Categorypages from './pages/website pages/categories/categorypages';
+import Updatecategory from './pages/website pages/categories/updatecategory';
+import Addproducts from './pages/website pages/categories/add';
+
 
 
 
@@ -43,6 +46,7 @@ function App() {
           <>
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/:id" element={<ShowAuth />} />
+            
           </>
         ) : (
           <Route path="*" element={<NotFound />} />  
@@ -53,6 +57,10 @@ function App() {
         {/* <Route path="/aside" element={<Aside />} /> */}
         <Route path="/maincategories" element={<Maincategories />} />
         <Route path={`/${params}`} element={<Categorypages />} />
+        <Route path="/product/:productid/:userid" element={<Updatecategory />} />
+        <Route path="/addproduct/:userid" element={<Addproducts />} />
+       
+
    
 
         <Route path="*" element={<NotFound />} /> 

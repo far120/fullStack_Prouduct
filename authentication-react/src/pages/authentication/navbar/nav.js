@@ -24,6 +24,7 @@ const NavBar = () => {
   const userData = useTokenDecoder();
   const role = userData?.role;
   const avatar = userData?.avatar;
+  const userid = userData?._id;
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -125,6 +126,13 @@ function Top() {
             </>
             :(
               null)}
+
+              { window.localStorage.getItem('token') &&( role === 'adminserver' || role === 'admin') ?
+            <>
+            <Link to={`/addproduct/${userid}`} className="dropdown-item">Addproducts</Link>
+            </>
+            :(
+              null)}
             <Link to="/notifications" className="dropdown-item">Notifications</Link>
             <Link to="/help" className="dropdown-item">Help</Link>
             <Link to="/dealing" className="dropdown-item">dealing</Link>
@@ -164,6 +172,7 @@ function Top() {
         ) : (
           <p>No links available</p>
         )}
+       
       </div>
     </div>
     <button onClick={Top} ref={last} className="topbtn">

@@ -32,21 +32,21 @@ const productSchema = new mongoose.Schema({
     category: {
         type:String,
         required: true,
-        enum: ['electronics', 'clothes', 'books', 'health', 'beauty', 'grocery', 'fashion']
+        // enum: ['electronics', 'clothes', 'books', 'health', 'beauty', 'grocery', 'fashion']
     },
     subcategory:{
         type:String,
         // required: true,
-        enum: ['man', 'woman', 'boy', 'girl', 'mobile', 'laptop', 'desktop', 'tv', 'Electrical appliances', 'refrigerator', 'fiction', 'non-fiction', 'educational', 'smart watch', 'camera', 'fruits', 'vegetables', 'dairy', 'snacks', 'frozen', 'speaker', 'clothing', 'shoes', 'food', 'vitamins', 'supplements', 'personal care', 'medical supplies', 'skincare', 'makeup', 'fragrances', 'haircare', 'footwear', 'accessories', 'jewelry', 'bags', 'hats', 'sunglasses', 'perfume', 'household item', 'toy', 'electronic accessory', 'book', 'author', 'publisher', 'genre', 'language', 'country', 'city', 'region', 'style', 'brand', 'color', 'material', 'pattern', 'size', 'age', 'gender', 'occupation', 'ethnicity', 'religion', 'political party', 'education', 'income', 'household size', 'pets', 'family member', 'family relationship', 'drink', 'season', 'month', 'day', 'time', 'weather', 'temperature', 'humidity']
+        // enum: ['man', 'woman', 'boy', 'girl', 'mobile', 'laptop', 'desktop', 'tv', 'Electrical appliances', 'refrigerator', 'fiction', 'non-fiction', 'educational', 'smart watch', 'camera', 'fruits', 'vegetables', 'dairy', 'snacks', 'frozen', 'speaker', 'clothing', 'shoes', 'food', 'vitamins', 'supplements', 'personal care', 'medical supplies', 'skincare', 'makeup', 'fragrances', 'haircare', 'footwear', 'accessories', 'jewelry', 'bags', 'hats', 'sunglasses', 'perfume', 'household item', 'toy', 'electronic accessory', 'book', 'author', 'publisher', 'genre', 'language', 'country', 'city', 'region', 'style', 'brand', 'color', 'material', 'pattern', 'size', 'age', 'gender', 'occupation', 'ethnicity', 'religion', 'political party', 'education', 'income', 'household size', 'pets', 'family member', 'family relationship', 'drink', 'season', 'month', 'day', 'time', 'weather', 'temperature', 'humidity']
     },
     image: {
-        type: [String],
+        type: String,
         required: true
     },
     stock: {
         type: Number,
         required: true,
-        min: 0
+        min: 1
     },
     createdAt: {
         type: Date,

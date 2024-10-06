@@ -10,6 +10,7 @@ const  addproducts = (req , res , next)=>{
             const verified = jwt.verify(token ,process.env.TOKEN_SECRET );
             req.user = verified;
             if (req.user.role =="admin" || req.user.role== "adminserver") {
+                console.log(token);
             next();
             } else {
                 return res.status(403).json({ message: 'Access denied. You are not authorized to access this resource.' });

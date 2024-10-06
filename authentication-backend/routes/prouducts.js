@@ -104,42 +104,65 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
     }
   });
 
-router.put('/:id/:userid', addproducts , upload.single('image'), async (req, res) => {
-  const admin = req.params.userid;
+  router.put('/:id/:userid', addproducts, upload.single('image'), async (req, res) => {
+    const admin = req.params.userid;
+  
+    // Joi schema for validation
     const schema = joi.object({
-    title : joi.string().min(3).max(500),
-    description : joi.string().min(10),
-    price : joi.number(),
-    discount : joi.number().min(0).max(100),
-    stock : joi.number().min(1),
-    image : joi.string(),
-    category: joi.string(),
-    subcategory: joi.string(),
-});
-
-const { error } = schema.validate(req.body);
-    if(error) return res.status(400).send(error.details[0].message);
-
-    try{
-
-       const user = await User.findById(admin);
-       if (!user ) return res.status(403).send('Access denied. Only admin can update products.');
-
-       req.body.user_id = user._id;
-       
-        let product = await Product.findByIdAndUpdate(req.params.id, req.body, {new: true});
-        if (!product) return res.status(404).send('Product not found');
-        
-        if(req.body.image) product.image = req.file.filename;
-        await product.save();
-        res.send(product);
+      title: joi.string().min(3).max(500),
+      description: joi.string().min(10),
+      price: joi.number(),
+      discount: joi.number().min(0).max(100),
+      stock: joi.number().min(1),
+      // image: joi.string(), // Image validation handled by Multer
+      category: joi.string(),
+      subcategory: joi.string(),
+    });
+  
+    const { error } = schema.validate(req.body);
+    if (error) return res.status(400).send(error.details[0].message);
+  
+    try {
+      // Check if user is an admin
+      const user = await User.findById(admin);
+      if (!user) return res.status(403).send('Access denied. Only admin can update products.');
+  
+      // Find the product to update
+      let product = await Product.findById(req.params.id);
+      if (!product) return res.status(404).send('Product not found');
+  
+      // Prepare the updated product details
+      // const updatedData = {
+      //   title: req.body.title,
+      //   description: req.body.description,
+      //   price: req.body.price,
+      //   discount: req.body.discount,
+      //   stock: req.body.stock,
+      //   image: req.file ? req.file.filename : product.image, // Keep existing image if none uploaded
+      //   category: req.body.category,
+      //   subcategory: req.body.subcategory,
+      // };
+  
+      // Update the product
+      product = await Product.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        description: req.body.description,
+        price: req.body.price,
+        discount: req.body.discount,
+        stock: req.body.stock,
+        image: req.file ? req.file.filename : product.image, // Keep existing image if none uploaded
+        category: req.body.category,
+        subcategory: req.body.subcategory,
+      }, { new: true });
+  
+      // Return the updated product
+      res.send(product);
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Server error');
     }
-    catch(err) {
-        res.status(500).send('Server error');
-    }
-
-});
-
+  });
+  
 router.delete('/:id', addproducts , async (req, res) => {
     try {
         const product = await Product.findByIdAndDelete(req.params.id);

@@ -27,8 +27,8 @@ router.get('/:id', async function(req, res){
 router.post('/', async function(req, res){
     const schema = Joi.object({
         name: Joi.string().min(3).max(50).required(),
-        description: Joi.string().min(5).max(200).required(),
-        subcategory: Joi.array().items(Joi.string()).required(),
+        description: Joi.string().min(5).max(200),
+        subcategory: Joi.array().items(Joi.string()),
     });
     const {error} = schema.validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
