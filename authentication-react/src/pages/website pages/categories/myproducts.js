@@ -5,44 +5,25 @@ import { Link } from "react-router-dom";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
 
-export default function Maincategories(props) {
+export default function Myproducts() {
     const [maincategories, setmaincategories] = useState([]);
     const [review , setreview] = useState([]);
     const tokendata = useTokenDecoder();
     const userid = tokendata?._id;
   const role = tokendata?.role;
+  console.log(userid );
+//   console.log(role);
 
-
-  console.log(role);
 
 
     useEffect(() => {
         fetch('http://localhost:2004/api/products')
             .then(response => response.json())
             .then(data => {
-                if (Array.isArray(data)) {
-                    const filteredProducts = data.filter(product => {
-                        if (props.subcategory === undefined) {
-                            return product.category === props.category; 
-                        } else {
-                            return  product.subcategory === props.subcategory; 
-                        }
-                    });
-                    if (filteredProducts.length > 0) {
-                        setmaincategories(filteredProducts);
-                    } else {
-                        setmaincategories([]);     
-                    }
-                } else {
-                    setmaincategories([]); 
-                   
-                }
-            })
-            .catch(error => {
-                console.error('Fetch error:', error);
-                alert("Failed to fetch products");
+                setmaincategories(data);
             });
-    }, [props.category, props.subcategory]); 
+    }, []); 
+
 
     const remove = (id , userid) => {
         axios.delete(`http://localhost:2004/api/products/${id}/${userid}`,{
@@ -62,11 +43,13 @@ export default function Maincategories(props) {
 
 
 
-    if (maincategories.length === 0) return <h1 style={{textAlign:"center"}}>No products.....</h1>; // Check if maincategories is empty
+    if (maincategories.length === 0) return <h1 style={{textAlign:"center"}}>No products.....</h1>; 
 
     const mainCategoryList = maincategories.map(maincategory => (
+         maincategory.user_id == userid ?
+            (
         <div  key={maincategory._id} style={{margin:"30px 0"}} >
-            {/* <Link to={`/products/${maincategory._id}`} style={{textDecoration:"none" }}> */}
+          
             <div className="card" style={{width: "300px" , minHeight:"300px" ,backgroundColor:"#ccc"}}>
   <img src={`http://localhost:2004/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
   <div className="bodycard">
@@ -102,18 +85,19 @@ export default function Maincategories(props) {
     <button className="btn btnh "><i class="fa-regular fa-heart"></i></button>
     <Link to={`/product/${maincategory._id}`}><button className="btn btns" ><i class="fa-solid fa-eye"></i></button></Link>
 </div>
-{  role == "adminserver" ? (
+
 
 <div className="abtn">
   <button className="btn" onClick={()=>{remove(maincategory._id , userid)}} >Delete</button>
   <Link to={`/product/${maincategory._id}/${userid}`}><button className="btn">Edit</button></Link>
   </div>
-)
-: null}
+
   </div>
 </div>
         {/* </Link> */}
         </div>
+            ):
+            (null)
     ));
 
 

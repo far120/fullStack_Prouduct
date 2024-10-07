@@ -33,8 +33,25 @@ const authenticationscehme = new mongoose.Schema({
         type:String,
         default: "uploads/download.png"
   
-    }
-
+    },
+    // products: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Product'
+    // }]
+    products: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+            },
+            actions: {
+                type: String,
+                enum: ['add', 'update', 'delete'],
+                required: true
+            }
+        }
+    ]
 },
     {
         timestamps:true

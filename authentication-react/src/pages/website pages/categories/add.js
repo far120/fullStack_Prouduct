@@ -64,7 +64,7 @@ export default function Addproducts() {
             })
             .then(response => {
                 alert('Product updated successfully');
-                navigate("/");
+                navigate("/myProducts");
             })
             .catch(error => {
                 console.log(error);

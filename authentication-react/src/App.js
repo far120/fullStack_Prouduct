@@ -18,6 +18,8 @@ import Maincategories from './pages/website pages/categories/maincategories';
 import Categorypages from './pages/website pages/categories/categorypages';
 import Updatecategory from './pages/website pages/categories/updatecategory';
 import Addproducts from './pages/website pages/categories/add';
+import Myproducts from './pages/website pages/categories/myproducts';
+import Dashboard from './pages/website pages/categories/dashboard';
 
 
 
@@ -59,6 +61,8 @@ function App() {
         <Route path={`/${params}`} element={<Categorypages />} />
         <Route path="/product/:productid/:userid" element={<Updatecategory />} />
         <Route path="/addproduct/:userid" element={<Addproducts />} />
+        <Route path="/myproducts" element={<Myproducts />} />
+        <Route path="/dashboard" element={<Dashboard />} />
        
 
    

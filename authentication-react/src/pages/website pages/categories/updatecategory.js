@@ -82,7 +82,7 @@ export default function Updatecategory() {
         )
         .then(response => {
             alert('Product updated successfully');
-            navigate("/");
+            navigate("/myproducts");
         })
         .catch(error => {
             console.error('Error updating product:', error);

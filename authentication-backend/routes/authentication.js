@@ -15,7 +15,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(file)
+        // console.log(file)
         cb(null, 'images/uploads')
     },
     filename: function (req, file, cb) {
@@ -27,7 +27,7 @@ const storage = multer.diskStorage({
   })
   const fileFilter = (req, file, cb) => {
     const typeoffile = file.mimetype.split('/')[0];
-    console.log("fgkgjfgk" + typeoffile)
+    // console.log("fgkgjfgk" + typeoffile)
     if (typeoffile!== 'image') {
         return cb({ "status":httpresponse.errorCallback , "erorr":'Only images are allowed!'}, false);
     }
@@ -79,7 +79,7 @@ routes.get('/:id', validationtoken , async (req, res) => {
     
     const { error } = schema.validate(req.body);
     if(error) return res.status(400).send(error.details[0].message);
-    console.log(1)
+    // console.log(1)
 
     var user = await Authentications.findOne({ email: req.body.email})
     if(user) return res.status(400).send("User already exists");
@@ -101,7 +101,7 @@ routes.get('/:id', validationtoken , async (req, res) => {
 
 
     try {
-        console.log(req.body);
+       
        const authentication = await newauthentication.save();
         const token = jwt.sign({_id: authentication._id , role:authentication.role , avatar:authentication.avatar  }, process.env.TOKEN_SECRET, { expiresIn: '30d' });
         authentication.token = token;

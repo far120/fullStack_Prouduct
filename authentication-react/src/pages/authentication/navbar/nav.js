@@ -130,12 +130,13 @@ function Top() {
               { window.localStorage.getItem('token') &&( role === 'adminserver' || role === 'admin') ?
             <>
             <Link to={`/addproduct/${userid}`} className="dropdown-item">Addproducts</Link>
+            <Link to={`/myproducts`} className="dropdown-item">Myproducts</Link>
             </>
             :(
               null)}
+            <Link to="/dashboard" className="dropdown-item">Dashboard</Link>
             <Link to="/notifications" className="dropdown-item">Notifications</Link>
             <Link to="/help" className="dropdown-item">Help</Link>
-            <Link to="/dealing" className="dropdown-item">dealing</Link>
             <button onClick={handleLogout} className="dropdown-item logout-btn">Logout</button>
           </div>
         </div>

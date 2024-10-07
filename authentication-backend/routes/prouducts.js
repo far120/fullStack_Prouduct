@@ -15,7 +15,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        console.log(file)
+        // console.log(file)
         cb(null, 'images/products')
     },
     filename: function (req, file, cb) {
@@ -62,7 +62,7 @@ router.get('/:id', async (req, res) => {
 
 router.post('/:userid', addproducts , upload.single('image'), async (req, res) => {
   const admin = req.params.userid;
-  console.log(admin)
+  // console.log(admin)
     const schema = joi.object({
     title : joi.string().required().min(3).max(500),
     description : joi.string().required().min(10),
@@ -84,7 +84,7 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
       const user = await User.findById(admin);
       if (!user ) return res.status(403).send('Access denied. Only admin can create products.');
 
-      console.log(user)
+      // console.log(user)
 
       const product = new Product({
         title: req.body.title,
@@ -97,8 +97,16 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
         subcategory: req.body.subcategory, 
         user_id: user._id, 
       });
-      await product.save();
-      res.send(product);
+   
+await product.save(); 
+console.log(product._id); 
+user.products.push({
+    product: product._id, 
+    actions: 'add' 
+});
+await user.save();
+res.send(product);
+
     } catch (error) {
       res.status(500).send(error.message);
     }
@@ -109,15 +117,14 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
   
     // Joi schema for validation
     const schema = joi.object({
-      title: joi.string().min(3).max(500),
-      description: joi.string().min(10),
-      price: joi.number(),
+      title: joi.string().min(3).max(500).required(),
+      description: joi.string().min(10).required(),
+      price: joi.number().required(),
       discount: joi.number().min(0).max(100),
-      stock: joi.number().min(1),
-      // image: joi.string(), // Image validation handled by Multer
-      category: joi.string(),
-      subcategory: joi.string(),
-    });
+      stock: joi.number().min(1).required(),
+      category: joi.string().required(),
+      subcategory: joi.string().required(),
+  });
   
     const { error } = schema.validate(req.body);
     if (error) return res.status(400).send(error.details[0].message);
@@ -131,20 +138,9 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
       let product = await Product.findById(req.params.id);
       if (!product) return res.status(404).send('Product not found');
   
-      // Prepare the updated product details
-      // const updatedData = {
-      //   title: req.body.title,
-      //   description: req.body.description,
-      //   price: req.body.price,
-      //   discount: req.body.discount,
-      //   stock: req.body.stock,
-      //   image: req.file ? req.file.filename : product.image, // Keep existing image if none uploaded
-      //   category: req.body.category,
-      //   subcategory: req.body.subcategory,
-      // };
-  
+ 
       // Update the product
-      product = await Product.findByIdAndUpdate(req.params.id, {
+     const updatedProduct = await Product.findByIdAndUpdate(req.params.id, {
         title: req.body.title,
         description: req.body.description,
         price: req.body.price,
@@ -154,24 +150,43 @@ router.post('/:userid', addproducts , upload.single('image'), async (req, res) =
         category: req.body.category,
         subcategory: req.body.subcategory,
       }, { new: true });
-  
+    
+      user.products.push({
+        product: updatedProduct._id,
+        actions: 'update',
+    });
+    await user.save();
       // Return the updated product
-      res.send(product);
+      res.send(updatedProduct);
     } catch (err) {
       console.error(err);
       res.status(500).send('Server error');
     }
   });
   
-router.delete('/:id', addproducts , async (req, res) => {
+  router.delete('/:id/:userid', addproducts, async (req, res) => {
+    const admin = req.params.userid;
     try {
-        const product = await Product.findByIdAndDelete(req.params.id);
-        if (!product) return res.status(404).send('Product not found');
-        res.send(product);
+    
+      const user = await User.findById(admin);
+      if (!user) return res.status(403).send('Access denied. Only admin can delete products.');
+        
+        const deletedProduct = await Product.findByIdAndDelete(req.params.id);
+        if (!deletedProduct) return res.status(404).send('Product not found');
+
+        user.products.push({
+            product: deletedProduct._id,
+            actions: 'delete'
+        });
+        await user.save();
+
+        res.send(deletedProduct);
     } catch (error) {
+        console.error(error);
         res.status(500).send('Server error');
     }
 });
+
 
 
 

@@ -51,7 +51,7 @@ export default function SignUp() {
                 }
             })
             .then(response => {
-                if (response.status==200 && response.status==201){
+                if (response.status==200 || response.status==201){
                     alert('User Registration successful! Please login.')
                     navigate("/login");
                 }
