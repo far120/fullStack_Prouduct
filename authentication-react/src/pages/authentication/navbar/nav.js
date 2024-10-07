@@ -134,7 +134,7 @@ function Top() {
             </>
             :(
               null)}
-            <Link to="/dashboard" className="dropdown-item">Dashboard</Link>
+            <Link to={`/dashboard/${userid}`} className="dropdown-item">Dashboard</Link>
             <Link to="/notifications" className="dropdown-item">Notifications</Link>
             <Link to="/help" className="dropdown-item">Help</Link>
             <button onClick={handleLogout} className="dropdown-item logout-btn">Logout</button>

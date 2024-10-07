@@ -58,6 +58,7 @@ export default function Auth() {
                         <div className="button-group">
                         <Link to={`/auth/${u._id}`}>  <button className="btn">Show</button></Link>
                         <Link to={`/updates/${u._id}`}><button className="btn">Update Auth</button></Link>
+                        <Link to={`/dashboard/${u._id}`}><button className="btn">show dashboard</button></Link>
                             {/* <button className="btn delete-btn" onClick={() => remove(u._id)}>Delete</button> */}
                             <button className="btn delete-btn" onClick={() => setUserToDelete({id: u._id ,myname: u.name})}>Delete</button>
                             

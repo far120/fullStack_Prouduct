@@ -20,6 +20,7 @@ import Updatecategory from './pages/website pages/categories/updatecategory';
 import Addproducts from './pages/website pages/categories/add';
 import Myproducts from './pages/website pages/categories/myproducts';
 import Dashboard from './pages/website pages/categories/dashboard';
+import Wishlist from './pages/website pages/categories/whishlist';
 
 
 
@@ -62,7 +63,8 @@ function App() {
         <Route path="/product/:productid/:userid" element={<Updatecategory />} />
         <Route path="/addproduct/:userid" element={<Addproducts />} />
         <Route path="/myproducts" element={<Myproducts />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard/:id" element={<Dashboard />} />
+        <Route path="/wishlist" element={<Wishlist />} />
        
 
    

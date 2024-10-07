@@ -82,7 +82,6 @@ export default function Myproducts() {
     )}
     <div className="abtn">
         <p className="discount" >{maincategory.discount}%</p>
-    <button className="btn btnh "><i class="fa-regular fa-heart"></i></button>
     <Link to={`/product/${maincategory._id}`}><button className="btn btns" ><i class="fa-solid fa-eye"></i></button></Link>
 </div>
 

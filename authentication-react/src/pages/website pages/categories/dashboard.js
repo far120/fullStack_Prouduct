@@ -1,31 +1,33 @@
 import { useEffect, useState } from "react";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 export default function Dashboard() {
-    const userData = useTokenDecoder();
-    const userid = userData?._id;  
+   const { id } = useParams();
+   const [name , setname] = useState();
     const [dashboard, setDashboard] = useState({}); // Keep this as an object to hold more data if needed
     const [error, setError] = useState(null); 
 
     useEffect(() => {
-        if (userid) {
-            axios.get(`http://localhost:2004/api/authentication/${userid}`, {
+        if (id) {
+            axios.get(`http://localhost:2004/api/authentication/${id}`, {
                 headers: {
                     'Authorization': `${window.localStorage.getItem('token')}`
                 }
             })
             .then((response) => {
-                setDashboard(response.data.products); // Set the entire response data
+                setname(response.data.name);  
+                setDashboard(response.data.products.reverse()); // Set the entire response data
             })
             .catch((error) => {
                 console.log(error);
                 setError("Failed to fetch user data."); 
             });
         }
-    }, [userid]);
+    }, [id]);
 
-    console.log(dashboard); // Log the entire dashboard object to debug
+
 
     return (
         <div className="container mt-4">
@@ -38,14 +40,18 @@ export default function Dashboard() {
                     <table className="table table-bordered">
                         <thead>
                             <tr>
+                                <th>User ID</th>
+                                <th>User Name</th>
                                 <th>ID</th>
-                                <th>Product</th>
+                                <th>Product_ID</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             {dashboard.map(item => (
                                 <tr key={item._id}>
+                                    <td>{id}</td>
+                                    <td>{name}</td>
                                     <td>{item._id}</td>
                                     <td>{item.product}</td>
                                     <td>{item.actions}</td>
@@ -55,7 +61,6 @@ export default function Dashboard() {
                     </table>
                 </div>
             )}
-            {(!dashboard.products || dashboard.products.length === 0) && <p>No products found.</p>} {/* Fallback message */}
         </div>
     );
 }

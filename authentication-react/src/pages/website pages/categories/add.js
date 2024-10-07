@@ -63,7 +63,7 @@ export default function Addproducts() {
                 }
             })
             .then(response => {
-                alert('Product updated successfully');
+                alert('Product added successfully');
                 navigate("/myProducts");
             })
             .catch(error => {

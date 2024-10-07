@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
 
+
 export default function Maincategories(props) {
     const [maincategories, setmaincategories] = useState([]);
     const [review , setreview] = useState([]);
@@ -60,6 +61,22 @@ export default function Maincategories(props) {
         });
     }
 
+    // whish list 
+    const addToWishlist = (productid) => {
+        axios.post(`http://localhost:2004/api/wishlist/${userid}/products/${productid}`,{
+            headers: {
+                'Authorization': `${localStorage.getItem("token")}`
+            }
+        })
+       .then(response => {
+            alert('Product added to wishlist successfully');
+        })
+       .catch(error => {
+            console.log(error);
+            alert(error.response.data)
+        });
+    }
+
 
 
     if (maincategories.length === 0) return <h1 style={{textAlign:"center"}}>No products.....</h1>; // Check if maincategories is empty
@@ -99,7 +116,7 @@ export default function Maincategories(props) {
     )}
     <div className="abtn">
         <p className="discount" >{maincategory.discount}%</p>
-    <button className="btn btnh "><i class="fa-regular fa-heart"></i></button>
+    <button className="btn btnh " onClick={()=>{addToWishlist(maincategory._id)}}><i class="fa-regular fa-heart"></i></button>
     <Link to={`/product/${maincategory._id}`}><button className="btn btns" ><i class="fa-solid fa-eye"></i></button></Link>
 </div>
 {  role == "adminserver" ? (

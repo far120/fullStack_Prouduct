@@ -35,6 +35,11 @@ router.post('/:userId/products/:productId', async (req, res) => {
         // Add the product to the wishlist
         wishlist.products.push({ product_id: productId });
         await wishlist.save();
+        user.products.push({
+            product: productId,
+            actions: 'add to wishlist',
+        })
+        await user.save();
 
         res.status(201).json(wishlist);
     } catch (err) {
@@ -70,7 +75,18 @@ router.delete('/:userId/products/:productId', async (req, res) => {
 
         // Filter out the product from the wishlist
         wishlist.products = wishlist.products.filter(item => item.product_id.toString() !== productId);
-        await wishlist.save();
+
+        const user = await User.findById(userId); // Assuming you have a User model
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+     await wishlist.save();
+
+        user.products.push({
+            product: productId,
+            actions: 'delete from wishlist',
+        })
+        await user.save();
 
         res.json(wishlist);
     } catch (err) {
