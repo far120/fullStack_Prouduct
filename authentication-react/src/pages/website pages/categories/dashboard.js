@@ -16,7 +16,7 @@ export default function Dashboard() {
                 }
             })
             .then((response) => {
-                setDashboard(response.data); // Set the entire response data
+                setDashboard(response.data.products); // Set the entire response data
             })
             .catch((error) => {
                 console.log(error);
@@ -32,7 +32,7 @@ export default function Dashboard() {
             <h1>Dashboard</h1>
             {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
             
-            {dashboard.products && dashboard.products.length > 0 && (
+            {dashboard && dashboard.length > 0 && (
                 <div className="mt-4">
                     <h2>Your Products:</h2>
                     <table className="table table-bordered">
@@ -44,7 +44,7 @@ export default function Dashboard() {
                             </tr>
                         </thead>
                         <tbody>
-                            {dashboard.products.map(item => (
+                            {dashboard.map(item => (
                                 <tr key={item._id}>
                                     <td>{item._id}</td>
                                     <td>{item.product}</td>
