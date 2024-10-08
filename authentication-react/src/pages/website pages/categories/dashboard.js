@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function Dashboard() {
    const { id } = useParams();
@@ -57,8 +57,8 @@ export default function Dashboard() {
                                     <td>{id}</td>
                                     <td>{name}</td>
                                     <td>{item._id}</td>
-                                    <td>{item.product}</td>
-                                    <td>{item.actions}</td>
+                                    <Link to={`/product/${item.product}`}><td>{item.product}</td></Link>
+                                    <td>{item.actions}</td> 
                                 </tr>
                             ))}
                         </tbody>

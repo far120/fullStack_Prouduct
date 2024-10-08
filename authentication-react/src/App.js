@@ -23,6 +23,7 @@ import Dashboard from './pages/website pages/categories/dashboard';
 import Wishlist from './pages/website pages/categories/whishlist';
 import Cart from './pages/website pages/categories/cart';
 import Products from './pages/website pages/categories/productid';
+import AllProducts from './pages/website pages/categories/all products';
 
 
 
@@ -51,6 +52,7 @@ function App() {
           <>
             <Route path="/auth" element={<Auth />} />
             <Route path="/auth/:id" element={<ShowAuth />} />
+            <Route path='/allproducts' element={<AllProducts />} />
             
           </>
         ) : (
@@ -69,6 +71,7 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<Products />} />
+
        
 
    

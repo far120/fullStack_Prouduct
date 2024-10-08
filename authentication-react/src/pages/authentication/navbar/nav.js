@@ -123,6 +123,8 @@ function Top() {
             { window.localStorage.getItem('token') && role === 'adminserver' ?
             <>
             <Link to="/auth" className="dropdown-item">Auth</Link>
+            <Link to="/allproducts" className="dropdown-item">AllProducts</Link>
+
             </>
             :(
               null)}
