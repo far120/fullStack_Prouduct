@@ -17,6 +17,7 @@ export default function Dashboard() {
                 }
             })
             .then((response) => {
+               
                 setname(response.data.name);  
                 setDashboard(response.data.products.reverse()); // Set the entire response data
             })
@@ -26,6 +27,7 @@ export default function Dashboard() {
             });
         }
     }, [id]);
+  
 
 
 
@@ -40,6 +42,7 @@ export default function Dashboard() {
                     <table className="table table-bordered">
                         <thead>
                             <tr>
+                                <th>Date</th>
                                 <th>User ID</th>
                                 <th>User Name</th>
                                 <th>ID</th>
@@ -50,6 +53,7 @@ export default function Dashboard() {
                         <tbody>
                             {dashboard.map(item => (
                                 <tr key={item._id}>
+                                    <td>{new Date(item.createdAt).toLocaleString()}</td>
                                     <td>{id}</td>
                                     <td>{name}</td>
                                     <td>{item._id}</td>

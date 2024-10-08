@@ -47,9 +47,18 @@ const authenticationscehme = new mongoose.Schema({
             },
             actions: {
                 type: String,
-                enum: ['add', 'update', 'delete' , 'add to wishlist', 'delete from wishlist'],
+                enum: ['add', 'update', 'delete' , 'add to wishlist', 'delete from wishlist' , 'add to cart' , 'delete from cart' ,'update cart'],
                 required: true
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            },
+            updatedAt: {
+                type: Date,
+                default: Date.now
             }
+            
         }
     ]
 },

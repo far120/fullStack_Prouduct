@@ -21,6 +21,7 @@ import Addproducts from './pages/website pages/categories/add';
 import Myproducts from './pages/website pages/categories/myproducts';
 import Dashboard from './pages/website pages/categories/dashboard';
 import Wishlist from './pages/website pages/categories/whishlist';
+import Cart from './pages/website pages/categories/cart';
 
 
 
@@ -65,6 +66,7 @@ function App() {
         <Route path="/myproducts" element={<Myproducts />} />
         <Route path="/dashboard/:id" element={<Dashboard />} />
         <Route path="/wishlist" element={<Wishlist />} />
+        <Route path="/cart" element={<Cart />} />
        
 
    

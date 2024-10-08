@@ -74,6 +74,19 @@
     top: -320px;
     left: 220px;
 }
+.btnc{
+    display: none;
+    background-color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 5px 10px;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+    position: absolute;
+    top: -280px;
+    left: 220px;
+}
 .discount{
     display: flex;
     flex-direction: row;
@@ -96,7 +109,8 @@
 }
 
 .card:hover .btnh,
-.card:hover .btns
+.card:hover .btns,
+ .card:hover .btnc
 {
     display: block; /* Show buttons on hover */
 }

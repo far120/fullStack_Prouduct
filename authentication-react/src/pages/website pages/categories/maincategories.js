@@ -73,6 +73,18 @@ export default function Maincategories(props) {
         })
        .catch(error => {
             console.log(error);
+            alert(error.response.data.message)
+            
+        });
+    }
+    // cart 
+    const addToCart = (productid) => {
+        axios.post(`http://localhost:2004/api/cart/${userid}/products/${productid}`)
+       .then(response => {
+            alert('Product added to cart successfully');
+        })
+       .catch(error => {
+            console.log(error);
             alert(error.response.data)
         });
     }
@@ -117,6 +129,7 @@ export default function Maincategories(props) {
     <div className="abtn">
         <p className="discount" >{maincategory.discount}%</p>
     <button className="btn btnh " onClick={()=>{addToWishlist(maincategory._id)}}><i class="fa-regular fa-heart"></i></button>
+    <button className="btn btnc " onClick={()=>{addToCart(maincategory._id)}}><i class="fa-solid fa-cart-shopping"></i></button>
     <Link to={`/product/${maincategory._id}`}><button className="btn btns" ><i class="fa-solid fa-eye"></i></button></Link>
 </div>
 {  role == "adminserver" ? (

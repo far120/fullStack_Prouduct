@@ -53,7 +53,7 @@ window.addEventListener('scroll', function handleScroll(){
 }); 
 // console.log(num)
 useEffect(()=>{
-    if(num>100)
+    if(num>200)
     {
         last.current.style.display="block";
     }
@@ -63,7 +63,7 @@ useEffect(()=>{
 },[num])
 
 function Top() {
-    if(num >= 100){
+    if(num >= 200){
     window.scrollTo({
       top: 0,
       behavior: "smooth"
