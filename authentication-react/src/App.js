@@ -24,6 +24,9 @@ import Wishlist from './pages/website pages/categories/whishlist';
 import Cart from './pages/website pages/categories/cart';
 import Products from './pages/website pages/categories/productid';
 import AllProducts from './pages/website pages/categories/all products';
+import Help from './pages/website pages/home page/help';
+import Notifications from './pages/website pages/home page/notafication';
+
 
 
 
@@ -71,6 +74,8 @@ function App() {
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/product/:id" element={<Products />} />
+        <Route path="/notifications" element={<Notifications />} />
+        <Route path="/help" element={<Help />} />
 
        
 
