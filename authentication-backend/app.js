@@ -38,7 +38,7 @@ app.use('/api/category', Category );
 app.use('/api/products' , Products);
 app.use('/images/uploads', express.static(path.join(__dirname,'images/uploads')))
 app.use('/images/products', express.static(path.join(__dirname,'images/products')))
-app.use('/api/products', reviewRouter);
+app.use('/api/review', reviewRouter);
 app.use('/api/wishlist', wishlist);
 app.use('/api/cart', cart);
 app.all('*', (req, res) => {

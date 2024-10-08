@@ -85,12 +85,16 @@ export default function Wishlist() {
                         <p className="cardtitle">{maincategory.category}</p>
                         <p className="cardtitle">{maincategory.subcategory}</p>
                         <div className="aside_part3">
-                            {[1, 1, 1, 1, 1].map((star, index) => (
-                                <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
-                                    ★
-                                </span>
-                            ))}
-                        </div>
+  {Array.from({ length: 5 }, (_, index) => (
+    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
+      {maincategory.totalrating > index ? (
+        <i className="fa-solid fa-star"></i> 
+      ) : (
+        <i className="fa-regular fa-star"></i> // Empty star
+      )}
+    </span>
+  ))}
+</div>
                         {maincategory.discount === 0 ? (
                             <p className="cardprice">Rs {maincategory.price}</p>
                         ) : (

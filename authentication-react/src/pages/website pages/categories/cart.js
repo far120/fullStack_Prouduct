@@ -109,7 +109,7 @@ export default function Cart() {
                                 <button className="btn btn-primary" onClick={() => updateQuantity(product.productId, product.quantity - 1)}>-</button>
                             </td>
                             <td>
-                                { product.discount >0 ?(
+                                { product.discount > 0 ?(
                                 <>
                               <del>  Rs {product.price}</del>
                               <span> Rs {(product.price - (product.price * product.discount / 100)).toFixed(0)}</span>

@@ -8,7 +8,7 @@ const {validationReview} = require('../middleware/review');
 
 
 // GET: Fetch reviews for a specific product
-router.get('/:productId/reviews', async (req, res) => {
+router.get('/:productId', async (req, res) => {
   const { productId } = req.params;
 
   try {
@@ -22,11 +22,11 @@ router.get('/:productId/reviews', async (req, res) => {
   }
 });
 
-// POST: Create a new review for a product
-router.post('/:userId/:productId/reviews', async (req, res) => {
+
+router.post('/:userId/:productId', async (req, res) => {
   const { userId, productId } = req.params;
 
-  // Validate the request body
+ 
   const schema = Joi.object({
     rating: Joi.number().min(1).max(5).required(),
     comment: Joi.string().required(),
@@ -35,38 +35,61 @@ router.post('/:userId/:productId/reviews', async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
-    // Find the product
+ 
     const product = await Product.findById(productId);
     if (!product) {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Find the user
+    
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
 
-    // Create a new review
-    const review = new Review({
+  
+    let reviewDocument = await Review.findOne({ product_id: productId });
+    if (!reviewDocument) {
+      reviewDocument = new Review({ product_id: productId, Reviews: [] });
+    }
+
+    if (reviewDocument.Reviews.some(item => item.user_id.toString() === userId)) {
+      return res.status(400).json({ message: 'you add review before' });
+  }
+
+    const newReview = {
+      user_id: user._id,
+      username: user.name,
       rating: req.body.rating,
       comment: req.body.comment,
-      user_id: user._id,  
-      product_id: product._id,
-    });
+    };
+    reviewDocument.Reviews.push(newReview);
 
-    await review.save();
-    res.status(201).json(review);
+    await reviewDocument.save();
+
+    // add new review in product
+    product.totalrating = reviewDocument.totalrating;
+    await product.save();
+
+    // add new review in user
+    user.products.push({
+      product: productId,
+      actions:'add review',
+    });
+    await user.save();
+
+
+    res.status(201).json(reviewDocument);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 });
 
-// PUT: Update an existing review
-router.put('/:reviewId/reviews', validationReview ,  async (req, res) => {
-  const { reviewId } = req.params;
 
-  // Validate the request body
+// PUT: Update an existing review
+router.put('/:userId/:productId',   async (req, res) => {
+  const { reviewId , userId , productId } = req.params;
+
   const schema = Joi.object({
     rating: Joi.number().min(1).max(5),
     comment: Joi.string(),
@@ -75,28 +98,91 @@ router.put('/:reviewId/reviews', validationReview ,  async (req, res) => {
   if (error) return res.status(400).json({ message: error.details[0].message });
 
   try {
-    // Find the review
-    const review = await Review.findByIdAndUpdate(reviewId, req.body, { new: true });
-    if (!review) {
+
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    let reviewDocument = await Review.findOne({ product_id: productId });
+    if (!reviewDocument) {
       return res.status(404).json({ message: 'Review not found' });
     }
-    res.json(review);
+
+
+    const reviewToUpdate = reviewDocument.Reviews.find(item => item.user_id.toString() === userId);
+    if (!reviewToUpdate) {
+      return res.status(401).json({ message: 'You are not authorized to update this review' });
+    }
+   
+
+    reviewToUpdate.rating = req.body.rating || reviewToUpdate.rating;
+    reviewToUpdate.comment = req.body.comment || reviewToUpdate.comment;
+    
+
+        await reviewDocument.save();
+
+    product.totalrating = reviewDocument.totalrating;
+    await product.save();
+
+    
+    user.products.push({
+      product: productId,
+      actions:'update review',
+    });
+    await user.save();
+
+    res.json(reviewDocument);
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
+
+   
 });
 
 // DELETE: Delete an existing review
-router.delete('/:reviewId/reviews', validationReview , async (req, res) => {
+router.delete('/:userId/:productId', async (req, res) => {
+  const { reviewId, userId, productId } = req.params;
   try {
-    const review = await Review.findByIdAndDelete(req.params.reviewId);
-    if (!review) {
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: 'Product not found' });
+    }
+    
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    
+    let reviewDocument = await Review.findOne({ product_id: productId });
+    if (!reviewDocument) {
       return res.status(404).json({ message: 'Review not found' });
     }
-    res.json({ message: 'Review deleted successfully', review });
-  } catch (err) {
+    reviewDocument.Reviews = reviewDocument.Reviews.filter(item => item.user_id.toString()!== userId);
+    await reviewDocument.save();
+
+    product.totalrating = reviewDocument.totalrating;
+    await product.save();
+
+    
+    user.products.push({
+      product: productId,
+      actions:'delete review',
+    });
+    await user.save();
+    res.status(204).send(reviewDocument);
+
+  }
+  catch (err) {
     res.status(500).json({ error: err.message });
   }
+
 });
 
 module.exports = router;

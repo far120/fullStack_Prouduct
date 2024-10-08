@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Reviews = require('./reviwes');
+const Review = require('./reviwes');
+const { types, ref } = require('joi');
 const productSchema = new mongoose.Schema({
     user_id:{
         // type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +48,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
         min: 1
+    },
+    totalrating: {
+        type: Number, // Changed to Number to store average rating
+        default: 0,
     },
     createdAt: {
         type: Date,

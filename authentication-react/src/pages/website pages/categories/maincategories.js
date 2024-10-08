@@ -8,7 +8,6 @@ import axios from "axios";
 
 export default function Maincategories(props) {
     const [maincategories, setmaincategories] = useState([]);
-    const [review , setreview] = useState([]);
     const tokendata = useTokenDecoder();
     const userid = tokendata?._id;
   const role = tokendata?.role;
@@ -95,7 +94,6 @@ export default function Maincategories(props) {
 
     const mainCategoryList = maincategories.map(maincategory => (
         <div  key={maincategory._id} style={{margin:"30px 0"}} >
-            {/* <Link to={`/products/${maincategory._id}`} style={{textDecoration:"none" }}> */}
             <div className="card" style={{width: "300px" , minHeight:"300px" ,backgroundColor:"#ccc"}}>
   <img src={`http://localhost:2004/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
   <div className="bodycard">
@@ -108,12 +106,13 @@ export default function Maincategories(props) {
 <p className="cardtitle">{maincategory.subcategory}</p>
 
 <div className="aside_part3">
-  {[1 , 1 ,1 ,1 ,1 ].map((star) => (
-    <span
-      key={star}
-      style={{ color: '#f39c12', cursor: 'default' }} // All stars will be gold and non-clickable
-    >
-      ★
+  {Array.from({ length: 5 }, (_, index) => (
+    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
+      {maincategory.totalrating > index ? (
+        <i className="fa-solid fa-star"></i> 
+      ) : (
+        <i className="fa-regular fa-star"></i> // Empty star
+      )}
     </span>
   ))}
 </div>
@@ -142,7 +141,7 @@ export default function Maincategories(props) {
 : null}
   </div>
 </div>
-        {/* </Link> */}
+        
         </div>
     ));
 

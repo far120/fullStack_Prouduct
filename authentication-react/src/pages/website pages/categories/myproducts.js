@@ -62,12 +62,13 @@ export default function Myproducts() {
 <p className="cardtitle">{maincategory.subcategory}</p>
 
 <div className="aside_part3">
-  {[1 , 1 ,1 ,1 ,1 ].map((star) => (
-    <span
-      key={star}
-      style={{ color: '#f39c12', cursor: 'default' }} // All stars will be gold and non-clickable
-    >
-      ★
+  {Array.from({ length: 5 }, (_, index) => (
+    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
+      {maincategory.totalrating > index ? (
+        <i className="fa-solid fa-star"></i> 
+      ) : (
+        <i className="fa-regular fa-star"></i> // Empty star
+      )}
     </span>
   ))}
 </div>
