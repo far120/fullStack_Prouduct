@@ -58,9 +58,7 @@ useEffect(() => {
         }) 
        .catch(err => console.log(err))    
 },[rend , id]);
-console.log(product)
-console.log(reviews)
-console.log(related)
+
 
 const handleSubmit = (e) => {
     e.preventDefault();
@@ -79,20 +77,20 @@ const handleSubmit = (e) => {
         alert(error.response.data.message);
     });
 
-    axios.put(`http://localhost:2004/api/review/${userid}/${id}`, {
-        comment,
-        rating
-    })
-    .then(response => {
-        alert('Review added successfully');
-        setcomment('');
-        setrating(1);
-        setrend(0)
-    })
-    .catch(error => {
-        console.log(error);
-        alert(error.response.data.message);
-    });
+    // axios.put(`http://localhost:2004/api/review/${userid}/${id}`, {
+    //     comment,
+    //     rating
+    // })
+    // .then(response => {
+    //     alert('Review added successfully');
+    //     setcomment('');
+    //     setrating(1);
+    //     setrend(0)
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    //     alert(error.response.data.message);
+    // });
     
 
     toggleReviewForm();
@@ -169,6 +167,8 @@ return (
             </div>
             <div className="product-details">
                 <h1>{product.title}</h1>
+                <p >{product.category}</p>
+                <p>{product.subcategory}</p>
                 <p>Rating: {product.rating}<div className="aside_part3">
   {Array.from({ length: 5 }, (_, index) => (
     <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
@@ -180,7 +180,11 @@ return (
     </span>
   ))}
 </div></p>
-<h3>Description: {product.description} </h3>
+<h3>Description:  {product.description.length > 50 
+        ? `${product.description.substring(0, 50)}...` 
+        : product.description} </h3>
+
+        
                
                 {product.discount > 0 ? (
                     <p className="price">
@@ -258,7 +262,7 @@ return (
                             src={`http://localhost:2004/images/products/${maincategory.image}`} 
                             className="card-img-top imges" 
                             style={{ height: "200px", width: "74%", objectFit: "fill", alignSelf: "center" }} 
-                            alt={maincategory.name} 
+                            alt={maincategory.title} 
                         />
                         <Link to={`/product/${maincategory._id}`} style={{textDecoration:"none"}}>
                         <div className="bodycard" style={{ padding: "10px" }}>

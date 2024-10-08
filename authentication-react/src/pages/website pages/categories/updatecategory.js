@@ -98,7 +98,7 @@ return(
                 <input type="text" name="title" placeholder="Title" value={product.title} onChange={handleChange} />
                 <input type="number" name="price" placeholder="Price" value={product.price} onChange={handleChange} />
                 <input type="text" name="category" placeholder="Category" value={product.category} onChange={handleChange} />
-                <input type="text"   name="category" placeholder="Category"     value={product.subcategory}  onChange={handleChange}  />
+                <input type="text"   name="subcategory" placeholder="subCategory"     value={product.subcategory}  onChange={handleChange}  />
                 <input type="text" name="description" placeholder="Description" value={product.description} onChange={handleChange} />
                 <input type="number" name="discount" placeholder="Discount" value={product.discount} onChange={handleChange} />
                 <input type="number" name="stock" placeholder="Stock" value={product.stock} onChange={handleChange} />
