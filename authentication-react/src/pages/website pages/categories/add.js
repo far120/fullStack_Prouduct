@@ -39,9 +39,9 @@ export default function Addproducts() {
         setProduct({ ...product, [e.target.name]: e.target.value });
     };
 
-    const handleImageChange = (e) => {
-        setImage(e.target.files[0]);
-    };
+    // const handleImageChange = (e) => {
+    //     setImage(e.target.files[0]);
+    // };
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -54,7 +54,7 @@ export default function Addproducts() {
         formData.append("description", product.description);
         formData.append("discount", product.discount);
         formData.append("stock", product.stock);
-        formData.append("image", image);
+        // formData.append("image", image);
 
         if (userid) {
             axios.post(`${BackEnd_url}/api/products/${userid}`, formData, {
@@ -105,7 +105,7 @@ export default function Addproducts() {
                     <input type="text" name="description" placeholder="Description" value={product.description} onChange={handleChange} />
                     <input type="number" name="discount" placeholder="Discount" value={product.discount} onChange={handleChange} />
                     <input type="number" name="stock" placeholder="Stock" value={product.stock} onChange={handleChange} />
-                    <input type="file" name="image" placeholder="Image" onChange={handleImageChange} />
+                    {/* <input type="file" name="image" placeholder="Image" onChange={handleImageChange} /> */}
                     <button type="submit">Submit</button>
                 </div>
             </form>
