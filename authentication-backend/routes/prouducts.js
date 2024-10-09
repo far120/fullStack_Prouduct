@@ -8,59 +8,39 @@ const User = require('../model/authentication');
 const router = express.Router()
 
 
-require('dotenv').config();
-const { CloudinaryStorage } = require('multer-storage-cloudinary');
-const cloudinary = require('cloudinary').v2;
-const multer = require('multer');
-cloudinary.config({
-  cloud_name: my_cloud_name,
-  api_key: 123456789012345,
-  api_secret:my_api_secret
-});
-
-// Configure multer to use Cloudinary
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-      folder: 'products', // The folder where images will be stored in Cloudinary
-      allowed_formats: ['jpg', 'png', 'jpeg'], // Allowable image formats
-  },
-});
-
-const upload = multer({ storage });
 
 /// multer
-// const multer = require('multer');
+const multer = require('multer');
 
 
-// const storage = multer.diskStorage({
-//     destination: function (req, file, cb) {
-//         // console.log(file)
-//         cb(null, 'images/products')
-//     },
-//     filename: function (req, file, cb) {
-//     const ext = file.mimetype.split('/')[1];
-//       const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)+`.${ext}`
-//       cb(null, file.fieldname + '-' + uniqueSuffix)
-//     }
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        // console.log(file)
+        cb(null, 'images/products')
+    },
+    filename: function (req, file, cb) {
+    const ext = file.mimetype.split('/')[1];
+      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)+`.${ext}`
+      cb(null, file.fieldname + '-' + uniqueSuffix)
+    }
     
-//   })
-//   const fileFilter = (req, file, cb) => {
-//     const typeoffile = file.mimetype.split('/')[0];
-//     if (typeoffile!== 'image') {
-//         return cb({ "status":httpresponse.errorCallback , "erorr":'Only images are allowed!'}, false);
-//     }
-//     cb(null, true);
-//   }
+  })
+  const fileFilter = (req, file, cb) => {
+    const typeoffile = file.mimetype.split('/')[0];
+    if (typeoffile!== 'image') {
+        return cb({ "status":httpresponse.errorCallback , "erorr":'Only images are allowed!'}, false);
+    }
+    cb(null, true);
+  }
 
 
   
-//   const upload = multer({ 
-//      storage ,
-//      fileFilter
-//    })
+  const upload = multer({ 
+     storage ,
+     fileFilter
+   })
 
-
+   
 router.get('/' , async (req, res) => {
     try {
         const products = await Product.find().select('-__v');
