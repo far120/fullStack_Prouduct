@@ -4,6 +4,7 @@ import axios from 'axios';
 import '../regester & login/login.css';
 import { Mycontext } from '../regester & login/context';
 import useTokenDecoder from '../jwt/useTokenDecoder';
+import {BackEnd_url}  from '../../../constance';
 
 export default function Update() {
     const userdata = useTokenDecoder();
@@ -18,7 +19,7 @@ export default function Update() {
     const [accept, setAccept] = useState(false);
 
     useEffect(() => {
-        axios.get(`http://localhost:2004/api/authentication/${id}`, {
+        axios.get(`${BackEnd_url}/api/authentication/${id}`, {
             headers: {
                 'Authorization': ` ${value}`
             }
@@ -63,7 +64,7 @@ export default function Update() {
             return; 
         }
 
-        axios.put(`http://localhost:2004/api/authentication/${id}`, {
+        axios.put(`${BackEnd_url}/api/authentication/${id}`, {
             name,
             email,
             role: Role
@@ -87,7 +88,7 @@ export default function Update() {
         <div className="back-image">
             <img 
                 className="user-image" 
-                src={`http://localhost:2004/images/uploads/${show}`} 
+                src={`${BackEnd_url}/images/uploads/${show}`} 
                 style={{ width: "200px", height: "250px", objectFit: "cover" }} 
                 alt="User Avatar" 
             />

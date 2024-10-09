@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const compression = require('compression');
 const dotenv = require('dotenv');
 dotenv.config();
 const path = require('path');
@@ -31,7 +32,8 @@ const logger = require('./middleware/logger');
 
 // middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors());  // for react api
+app.use(compression()); // for compressed responses and requests
 app.use(logger);
 app.use('/api/authentication', Authentications);
 app.use('/api/category', Category );

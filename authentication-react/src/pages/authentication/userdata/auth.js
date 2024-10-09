@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Mycontext } from "../regester & login/context";
 import "./auth.css"
 import ConfirmDeleteModal from "./confirm";
+import {BackEnd_url}  from '../../../constance';
 
 
 export default function Auth() {
@@ -11,7 +12,7 @@ export default function Auth() {
     const [user, setUser] = useState([]);
     const [userToDelete, setUserToDelete] = useState(null);
     useEffect(() => {
-        axios.get("http://localhost:2004/api/authentication",{
+        axios.get(`${BackEnd_url}/api/authentication`,{
             headers: {
                 'Authorization': ` ${value}`
             }
@@ -27,7 +28,7 @@ export default function Auth() {
     }, [value]);
 
     const remove = (id) => {
-        axios.delete(`http://localhost:2004/api/authentication/${id}`,{
+        axios.delete(`${BackEnd_url}/api/authentication/${id}`,{
             headers: {
                 'Authorization': ` ${value}`
             }
@@ -51,7 +52,7 @@ export default function Auth() {
                     <div className="user-card" key={u._id}>
                         <hr className="divider" />
                         <h2 className="user-id">{u._id}</h2>
-                        <img className="user-image" src={`http://localhost:2004/images/uploads/${u.avatar}`}  alt="User Avatar" style={{ width: "200px", height: "250px", objectFit: "cover" }} />  
+                        <img className="user-image" src={`${BackEnd_url}/images/uploads/${u.avatar}`}  alt="User Avatar" style={{ width: "200px", height: "250px", objectFit: "cover" }} />  
                         <p className="user-name">Role: {u.role}</p>
                         <p className="user-name">Name: {u.name}</p>
                         <p className="user-email">Email: {u.email}</p>

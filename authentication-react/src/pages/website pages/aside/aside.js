@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 import './aside.css';
+import {BackEnd_url}  from '../../../constance';
 
 export default function Aside() {
   const [isChecked, setIsChecked] = useState(false);

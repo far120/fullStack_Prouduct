@@ -3,6 +3,7 @@ import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Mycontext } from "../../authentication/regester & login/context";
+import {BackEnd_url}  from '../../../constance';
 
 export default function Cart() {
     const userdata = useTokenDecoder();
@@ -15,7 +16,7 @@ export default function Cart() {
    
     useEffect(() => {
         if (userid) {
-            axios.get(`http://localhost:2004/api/cart/${userid}`, {
+            axios.get(`${BackEnd_url}/api/cart/${userid}`, {
                 headers: {
                     'Authorization': `${localStorage.getItem("token")}`
                 }
@@ -35,7 +36,7 @@ export default function Cart() {
     console.log(totalPrice);
   
     const remove = (id) => {
-        axios.delete(`http://localhost:2004/api/cart/${userid}/products/${id}`, {
+        axios.delete(`${BackEnd_url}/api/cart/${userid}/products/${id}`, {
             headers: {
                 'Authorization': `${localStorage.getItem("token")}`
             }
@@ -52,7 +53,7 @@ export default function Cart() {
     }
     
     const updateQuantity = (id, newQuantity) => {
-        axios.put(`http://localhost:2004/api/cart/${userid}/products/${id}`, 
+        axios.put(`${BackEnd_url}/api/cart/${userid}/products/${id}`, 
             {quantity: newQuantity},
             {
             headers: {
@@ -97,7 +98,7 @@ export default function Cart() {
                         <tr key={product._id}>
                             <td>
                                 <img 
-                                    src={`http://localhost:2004/images/products/${product.imageUrl}`} 
+                                    src={`${BackEnd_url}/images/products/${product.imageUrl}`} 
                                     alt={product.title} 
                                     className="img-fluid" 
                                     style={{ maxWidth: "100px", maxHeight: "100px" }} 

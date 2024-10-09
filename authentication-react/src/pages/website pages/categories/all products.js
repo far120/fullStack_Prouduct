@@ -4,6 +4,7 @@ import "./maincategories.css";
 import { Link } from "react-router-dom";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
+import {BackEnd_url}  from '../../../constance';
 
 
 export default function AllProducts() {
@@ -17,7 +18,7 @@ export default function AllProducts() {
 
 
     useEffect(() => {
-        fetch('http://localhost:2004/api/products')
+        fetch(`${BackEnd_url}/api/products`)
             .then(response => response.json())
             .then(data => {
                 setmaincategories(data)
@@ -29,7 +30,7 @@ export default function AllProducts() {
     }, []); 
 
     const remove = (id , userid) => {
-        axios.delete(`http://localhost:2004/api/products/${id}/${userid}`,{
+        axios.delete(`${BackEnd_url}/api/products/${id}/${userid}`,{
             headers: {
                 'Authorization': `${localStorage.getItem("token")}`
             }

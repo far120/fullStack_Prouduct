@@ -4,6 +4,8 @@ import { Mycontext } from '../regester & login/context';
 import './nav.css';
 import useTokenDecoder from '../jwt/useTokenDecoder';
 import images from "./img/gradient-instagram-shop-logo-template_23-2149704603.avif";
+import {BackEnd_url}  from '../../../constance';
+
 
 const NavBar = () => {
   const last =useRef()
@@ -15,7 +17,7 @@ const NavBar = () => {
 // get category to be link
 
   useEffect(() => {
-    fetch("http://localhost:2004/api/category")
+    fetch(`${BackEnd_url}/api/category`)
     .then(res => res.json())
     .then(data => setlinks(data))
   },[]);
@@ -113,7 +115,7 @@ function Top() {
             aria-expanded="false"
           >
             <img
-              src={`http://localhost:2004/images/uploads/${avatar}`}
+              src={`${BackEnd_url}/images/uploads/${avatar}`}
               alt="Profile"
               className="profile-img"
             />

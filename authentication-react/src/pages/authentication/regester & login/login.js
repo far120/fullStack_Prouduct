@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './login.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import {BackEnd_url}  from '../../../constance';
 export default function Login() {
     const { value, setValue } = useContext(Mycontext);
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export default function Login() {
             setShow(false);
 
         if(setShow){
-       await axios.post("http://localhost:2004/api/authentication/login",
+       await axios.post(`${BackEnd_url}/api/authentication/login`,
             {
                 email,
                 password

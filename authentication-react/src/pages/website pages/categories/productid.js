@@ -3,9 +3,12 @@ import { Link, useParams } from "react-router-dom";
 import './productid.css';
 import axios from "axios";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
+import {BackEnd_url}  from '../../../constance';
+
 export default function Productid(){
     const tokendata = useTokenDecoder();
     const userid = tokendata?._id;
+    const role = tokendata?.role;
     const{id} = useParams();
     console.log(id)
     const [comment , setcomment] = useState();
@@ -33,13 +36,13 @@ export default function Productid(){
     
 useEffect(() => {
     
-     fetch(`http://localhost:2004/api/products/${id}`)
+     fetch(`${BackEnd_url}/api/products/${id}`)
        .then(res => res.json())
        .then(data => setproduct(data))
        .catch(err => console.log(err))
 
 
-       fetch(`http://localhost:2004/api/products`)
+       fetch(`${BackEnd_url}/api/products`)
     .then(res => res.json())
     .then(data =>{
         const relatedProducts = data.filter(product => product._id!== id && product.category === product.category).slice(0, 3);
@@ -48,7 +51,7 @@ useEffect(() => {
     .catch(err => console.log(err))
     
 
-        fetch(`http://localhost:2004/api/review/${id}`)
+        fetch(`${BackEnd_url}/api/review/${id}`)
        .then(res => res.json())
        .then(data =>{
         const review = data.map(review=>(
@@ -62,7 +65,7 @@ useEffect(() => {
 
 const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`http://localhost:2004/api/review/${userid}/${id}`, {
+    axios.post(`${BackEnd_url}/api/review/${userid}/${id}`, {
         comment,
         rating
     })
@@ -77,7 +80,7 @@ const handleSubmit = (e) => {
         alert(error.response.data.message);
     });
 
-    // axios.put(`http://localhost:2004/api/review/${userid}/${id}`, {
+    // axios.put(`${BackEnd_url}/api/review/${userid}/${id}`, {
     //     comment,
     //     rating
     // })
@@ -99,7 +102,7 @@ const handleSubmit = (e) => {
 };
 
 const removeReview = () => {
-    axios.delete(`http://localhost:2004/api/review/${userid}/${id}`)
+    axios.delete(`${BackEnd_url}/api/review/${userid}/${id}`)
    .then(response => {
     setreviews(reviews.filter(review => review._id!== response.data._id));
     setrend(1);
@@ -116,7 +119,7 @@ const removeReview = () => {
 
 
 const addToWishlist = () => {
-    axios.post(`http://localhost:2004/api/wishlist/${userid}/products/${id}`,{
+    axios.post(`${BackEnd_url}/api/wishlist/${userid}/products/${id}`,{
         headers: {
             'Authorization': `${localStorage.getItem("token")}`
         }
@@ -132,7 +135,7 @@ const addToWishlist = () => {
 }
 // cart 
 const addToCart = () => {
-    axios.post(`http://localhost:2004/api/cart/${userid}/products/${id}`)
+    axios.post(`${BackEnd_url}/api/cart/${userid}/products/${id}`)
    .then(response => {
         alert('Product added to cart successfully');
     })
@@ -158,10 +161,10 @@ return (
     <div className="product-page">
         <div className="showpart1">
             <div className="product-image">
-                <img src={`http://localhost:2004/images/products/${product.image}`} alt={product.title} />
+                <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
                 {/* Thumbnail images for selection */}
                 <div className="thumbnail-images">
-                    <img src={`http://localhost:2004/images/products/${product.image}`} alt={product.title} />
+                    <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
                     {/* Add more thumbnail images if needed */}
                 </div>
             </div>
@@ -211,12 +214,14 @@ return (
                     <p>🙍{review.username}</p>
                     <p>Comment: {review.comment}</p>
                     <p>Rating: {review.rating} / 5.0</p>
-                    {review.user_id === userid ? (
-                        <>
-                        <button className="btn" onClick={() => removeReview()}>Delete</button>
-                        <button className="btn">Edit</button>
-                        
-                        </>
+                    {review.user_id === userid || role == 'adminserver' ? (
+                        <button className="btn" onClick={() => removeReview()}>Delete</button>        
+                    ):
+                    (
+                        null
+                    )}
+                     {review.user_id === userid  ? (
+                        <button className="btn">Edit</button>       
                     ):
                     (
                         null
@@ -259,7 +264,7 @@ return (
                     
                     <div className="card" style={{ width: "300px", minHeight: "300px", backgroundColor: "#ccc" }}>
                         <img 
-                            src={`http://localhost:2004/images/products/${maincategory.image}`} 
+                            src={`${BackEnd_url}/images/products/${maincategory.image}`} 
                             className="card-img-top imges" 
                             style={{ height: "200px", width: "74%", objectFit: "fill", alignSelf: "center" }} 
                             alt={maincategory.title} 

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'; 
 import './login.css';
+import {BackEnd_url}  from '../../../constance';
 
 export default function SignUp() {
     const navigate = useNavigate();
@@ -39,7 +40,7 @@ export default function SignUp() {
         }
         
      
-         axios.post("http://localhost:2004/api/authentication", {
+         axios.post(`${BackEnd_url}/api/authentication`, {
                 name,  
                 email,
                 password,

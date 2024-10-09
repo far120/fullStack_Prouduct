@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import {BackEnd_url}  from '../../../constance';
 
 
 export default function Updatecategory() {
@@ -10,7 +11,7 @@ export default function Updatecategory() {
     const [categories, setcategories] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:2004/api/category")
+        axios.get(`${BackEnd_url}/api/category`)
             .then(response => {
                 const allSubcategories = response.data.flatMap(category => category.subcategory);
                 setSubcategories(allSubcategories);
@@ -47,7 +48,7 @@ export default function Updatecategory() {
 
 
     useEffect(() => {
-        fetch(`http://localhost:2004/api/products/${productid}`)
+        fetch(`${BackEnd_url}/api/products/${productid}`)
             .then(res => res.json())
             .then(data => {
                 setProduct(data); 
@@ -71,7 +72,7 @@ export default function Updatecategory() {
             formData.append("image", image);
         }
 
-        axios.put(`http://localhost:2004/api/products/${productid}/${userid}`, 
+        axios.put(`${BackEnd_url}/api/products/${productid}/${userid}`, 
             formData,
             {
                 headers: {

@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Mycontext } from "../regester & login/context";
 import "./auth.css";
 import  useTokenDecoder  from '../jwt/useTokenDecoder';
+import {BackEnd_url}  from '../../../constance';
 
 export default function Profile() {
     const { value, setValue } = useContext(Mycontext);
@@ -13,7 +14,7 @@ export default function Profile() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:2004/api/authentication/${id}`, {
+            axios.get(`${BackEnd_url}/api/authentication/${id}`, {
                 headers: {
                     'Authorization': ` ${value}`
                 }
@@ -33,7 +34,7 @@ export default function Profile() {
                 <div className="user-card" key={user._id}>
                     <hr className="divider" />
                     <h2 className="user-id">{user._id}</h2>
-                    <img className="user-image" src={`http://localhost:2004/images/uploads/${user.avatar}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
+                    <img className="user-image" src={`${BackEnd_url}/images/uploads/${user.avatar}`} style={{ width: "200px", height: "250px", objectFit: "cover" }} alt="User Avatar" />
                     <p className="user-name">{user.name}</p>
                     <p className="user-email">{user.email}</p>
                     <div className="button-group">

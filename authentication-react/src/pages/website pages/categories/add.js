@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import {BackEnd_url}  from '../../../constance';
 
 export default function Addproducts() {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ export default function Addproducts() {
     const [subcategories, setSubcategories] = useState([]);
 
     useEffect(() => {
-        axios.get("http://localhost:2004/api/category")
+        axios.get(`${BackEnd_url}/api/category`)
             .then(response => {
                 const allSubcategories = response.data.flatMap(category => category.subcategory);
                 setSubcategories(allSubcategories);
@@ -56,7 +57,7 @@ export default function Addproducts() {
         formData.append("image", image);
 
         if (userid) {
-            axios.post(`http://localhost:2004/api/products/${userid}`, formData, {
+            axios.post(`${BackEnd_url}/api/products/${userid}`, formData, {
                 headers: {
                     'Authorization': `${localStorage.getItem("token")}`,
                     'Content-Type': 'multipart/form-data'

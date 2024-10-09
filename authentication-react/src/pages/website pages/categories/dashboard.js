@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
+import {BackEnd_url}  from '../../../constance';
 
 export default function Dashboard() {
    const { id } = useParams();
@@ -11,7 +12,7 @@ export default function Dashboard() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`http://localhost:2004/api/authentication/${id}`, {
+            axios.get(`${BackEnd_url}/api/authentication/${id}`, {
                 headers: {
                     'Authorization': `${window.localStorage.getItem('token')}`
                 }

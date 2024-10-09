@@ -4,6 +4,7 @@ import "./maincategories.css";
 import { Link } from "react-router-dom";
 import useTokenDecoder from "../../authentication/jwt/useTokenDecoder";
 import axios from "axios";
+import {BackEnd_url}  from '../../../constance';
 
 export default function Myproducts() {
     const [maincategories, setmaincategories] = useState([]);
@@ -17,7 +18,7 @@ export default function Myproducts() {
 
 
     useEffect(() => {
-        fetch('http://localhost:2004/api/products')
+        fetch(`${BackEnd_url}/api/products`)
             .then(response => response.json())
             .then(data => {
                 setmaincategories(data);
@@ -26,7 +27,7 @@ export default function Myproducts() {
 
 
     const remove = (id , userid) => {
-        axios.delete(`http://localhost:2004/api/products/${id}/${userid}`,{
+        axios.delete(`${BackEnd_url}/api/products/${id}/${userid}`,{
             headers: {
                 'Authorization': `${localStorage.getItem("token")}`
             }
@@ -51,7 +52,7 @@ export default function Myproducts() {
         <div  key={maincategory._id} style={{margin:"30px 0"}} >
           
             <div className="card" style={{width: "300px" , minHeight:"300px" ,backgroundColor:"#ccc"}}>
-  <img src={`http://localhost:2004/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
+  <img src={`${BackEnd_url}/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
   <div className="bodycard">
   <p className="cardtitle">
     {maincategory.title.length > 50 
