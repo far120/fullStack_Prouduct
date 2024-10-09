@@ -47,7 +47,7 @@ export default function AllProducts() {
 
     // whish list 
     const addToWishlist = (productid) => {
-        axios.post(`http://localhost:2004/api/wishlist/${userid}/products/${productid}`,{
+        axios.post(`${BackEnd_url}/api/wishlist/${userid}/products/${productid}`,{
             headers: {
                 'Authorization': `${localStorage.getItem("token")}`
             }
@@ -63,7 +63,7 @@ export default function AllProducts() {
     }
     // cart 
     const addToCart = (productid) => {
-        axios.post(`http://localhost:2004/api/cart/${userid}/products/${productid}`)
+        axios.post(`${BackEnd_url}/api/cart/${userid}/products/${productid}`)
        .then(response => {
             alert('Product added to cart successfully');
         })
@@ -80,7 +80,7 @@ export default function AllProducts() {
     const mainCategoryList = maincategories.map(maincategory => (
         <div  key={maincategory._id} style={{margin:"30px 0"}} >
             <div className="card" style={{width: "300px" , minHeight:"300px" ,backgroundColor:"#ccc"}}>
-  <img src={`http://localhost:2004/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
+  <img src={`${BackEnd_url}/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
   <div className="bodycard">
   <p className="cardtitle">
     {maincategory.title.length > 50 

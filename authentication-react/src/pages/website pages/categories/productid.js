@@ -318,7 +318,7 @@ return (
 {/* <div className="related-products">
 {related.map((relatedProduct, index) => (
     <div key={index} className="related-product">
-        <img src={`http://localhost:2004/images/products/${relatedProduct.image}`} alt={relatedProduct.title} />
+        <img src={`${BackEnd_url}/images/products/${relatedProduct.image}`} alt={relatedProduct.title} />
         <p>{relatedProduct.title}</p>
         <p>Rs {relatedProduct.price}</p>
         <p>In Stock</p>
