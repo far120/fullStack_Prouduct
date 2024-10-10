@@ -161,10 +161,25 @@ return (
     <div className="product-page">
         <div className="showpart1">
             <div className="product-image">
-                <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
+                
+            {product.image == null ?
+                (
+                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} alt={product.title} />
+                ):
+                (
+
+                    <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
+                )}
                 {/* Thumbnail images for selection */}
                 <div className="thumbnail-images">
+                {product.image == null ?
+                (
+                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} alt={product.title} />
+                ):
+                (
+
                     <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
+                )}
                     {/* Add more thumbnail images if needed */}
                 </div>
             </div>

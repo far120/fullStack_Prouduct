@@ -97,12 +97,30 @@ export default function Cart() {
                     {mycart.map(product => (
                         <tr key={product._id}>
                             <td>
-                                <img 
+                            {product.image == null ?
+                (
+                    <img 
+                    src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`}
+                    alt={product.title} 
+                    className="img-fluid" 
+                    style={{ maxWidth: "100px", maxHeight: "100px" }} 
+                />
+                ):
+                (
+
+                    <img 
+                    src={`${BackEnd_url}/images/products/${product.imageUrl}`} 
+                    alt={product.title} 
+                    className="img-fluid" 
+                    style={{ maxWidth: "100px", maxHeight: "100px" }} 
+                />
+                )}
+                                {/* <img 
                                     src={`${BackEnd_url}/images/products/${product.imageUrl}`} 
                                     alt={product.title} 
                                     className="img-fluid" 
                                     style={{ maxWidth: "100px", maxHeight: "100px" }} 
-                                />
+                                /> */}
                             </td>
                             <td>{product.title}</td>
                             <td>{product.quantity}

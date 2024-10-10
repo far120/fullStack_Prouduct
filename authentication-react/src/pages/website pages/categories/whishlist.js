@@ -72,12 +72,14 @@ export default function Wishlist() {
         
             <div key={maincategory._id} style={{ margin: "30px 0" }}>
                 <div className="card" style={{ width: "300px", minHeight: "300px", backgroundColor: "#ccc" }}>
-                    <img 
-                        src={`${BackEnd_url}/images/products/${maincategory.image}`} 
-                        className="card-img-top imges" 
-                        style={{ height: "200px", width: "74%", objectFit: "fill", alignSelf: "center" }} 
-                        alt={maincategory.name}
-                    />
+                {maincategory.image == null ?
+                (
+                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/> 
+                ):
+                (
+
+                    <img src={`${BackEnd_url}/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
+                )}
                     <div className="bodycard">
                         <p className="cardtitle">
                             {maincategory.title.length > 50 
