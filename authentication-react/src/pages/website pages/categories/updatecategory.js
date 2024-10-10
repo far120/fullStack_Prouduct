@@ -69,7 +69,8 @@ export default function Updatecategory() {
         formData.append("discount", product.discount);
         formData.append("stock", product.stock);
         if (image instanceof File) {
-            formData.append("image", image);
+            // formData.append("image", image);
+
         }
 
         axios.put(`${BackEnd_url}/api/products/${productid}/${userid}`, 
