@@ -97,7 +97,7 @@ export default function Cart() {
                     {mycart.map(product => (
                         <tr key={product._id}>
                             <td>
-                            {product.image == null ?
+                            {product.imageUrl == null ?
                 (
                     <img 
                     src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`}
