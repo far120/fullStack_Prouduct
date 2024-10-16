@@ -1,6 +1,6 @@
 * {
-  font-weight: bold; /* Change to 'bold' for a balanced appearance */
-  font-size: 18px; /* Adjust size to prevent overly large text */
+  font-weight: bold; 
+  font-size: 18px; 
 }
 
 .back-image {
@@ -25,7 +25,6 @@
   border-radius: 20px;
   padding: 20px;
   background-color:rgba(110, 124, 150, 0.2); 
-  /* background-color: transparent; */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 

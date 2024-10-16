@@ -39,38 +39,50 @@ export default function Login() {
         });
     }
 }
-    return (
-        
-        <div className="back-image">
-            <div className="cards">
-                <form className="forms" onSubmit={handleSubmit}>
-                    <h2 className='top'>Login</h2>
-                    <label>Email:</label>
-                    <input 
-                        type="email" 
-                         placeholder='Enter email address'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)} 
-                    /><br />
-                    <label >Password:</label>
-                    <input 
-                        type="password" 
-                         placeholder='Enter your password'
-                        id="pass" 
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)} 
-                    /><br />
-                    {password.length < 8 && accept && (
-                        <p>Password must be greater than 8 characters</p>
-                    )}
-                    <div className="btnl">
-                    <input type="submit" value="Submit" />
-                   
-                    </div>
-                </form>
-            </div>
-
-
-        </div>
-    );
+return (
+    <div className="back-image d-flex justify-content-center align-items-center vh-100">
+      <div className="card shadow-lg p-4" style={{ width: '400px' }}>
+        <form className="forms" onSubmit={handleSubmit}>
+          <h2 className="text-center mb-4">Login</h2>
+          
+          {/* Email Input */}
+          <div className="form-group mb-3">
+            <label htmlFor="email" className="form-label">Email:</label>
+            <input
+              type="email"
+              id="email"
+              className="form-control"
+              placeholder="Enter email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          
+          {/* Password Input */}
+          <div className="form-group mb-3">
+            <label htmlFor="password" className="form-label">Password:</label>
+            <input
+              type="password"
+              id="pass"
+              className="form-control"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
+  
+          {/* Error Message */}
+          {password.length < 8 && accept && (
+            <p className="text-danger">Password must be greater than 8 characters</p>
+          )}
+  
+          {/* Submit Button */}
+          <div className="text-center">
+            <input type="submit" value="Submit" className="btn btn-primary w-100" />
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+  
 }

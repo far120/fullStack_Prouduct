@@ -81,10 +81,11 @@ export default function Cart() {
 
     return (
         <div className="container mt-4">
-            <h1 className="text-center">Wishlist Products</h1>
+            <h1 className="text-center">Cart Products</h1>
             <h3 className="text-center">Total Price: Rs {totalPrice}</h3>
-            <table className="table table-bordered table-hover mt-4">
-                <thead className="thead-light">
+            <div className="table-responsive">
+        <table className="table table-bordered table-hover mt-4">
+          <thead className="thead-light">
                     <tr>
                         <th scope="col">Product Image</th>
                         <th scope="col">Title</th>
@@ -115,12 +116,7 @@ export default function Cart() {
                     style={{ maxWidth: "100px", maxHeight: "100px" }} 
                 />
                 )}
-                                {/* <img 
-                                    src={`${BackEnd_url}/images/products/${product.imageUrl}`} 
-                                    alt={product.title} 
-                                    className="img-fluid" 
-                                    style={{ maxWidth: "100px", maxHeight: "100px" }} 
-                                /> */}
+                        
                             </td>
                             <td>{product.title}</td>
                             <td>{product.quantity}
@@ -145,6 +141,7 @@ export default function Cart() {
                     ))}
                 </tbody>
             </table>
+            </div>
         </div>
     );
 }

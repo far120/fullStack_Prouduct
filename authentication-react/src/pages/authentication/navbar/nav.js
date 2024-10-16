@@ -88,7 +88,7 @@ useEffect(() => {
 
 return (
 <>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
   <div class="container">
   <div className="">
         <Link to="/">
@@ -103,7 +103,7 @@ return (
         
       <form class="container-fluid">
     <div class="input-group" >
-      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+      <input type="text" class="form-control" placeholder="Search...." aria-label="Username" aria-describedby="basic-addon1"/>
       <span class="input-group-text" id="basic-addon1"><i className="fas fa-search"></i></span>
     </div>
   </form>
@@ -133,7 +133,7 @@ return (
                   aria-current="page"
                   to="/signup"
                 >
-                  Sign up
+                  Signup
                 </Link>
               </li>
               <li className="nav-item me-3">

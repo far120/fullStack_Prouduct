@@ -40,8 +40,9 @@ export default function Dashboard() {
             {dashboard && dashboard.length > 0 && (
                 <div className="mt-4">
                     <h2>Your Products:</h2>
-                    <table className="table table-bordered">
-                        <thead>
+                    <div className="table-responsive">
+        <table className="table table-bordered table-hover mt-4">
+          <thead className="thead-light">
                             <tr>
                                 <th>Date</th>
                                 <th>User ID</th>
@@ -65,6 +66,7 @@ export default function Dashboard() {
                         </tbody>
                     </table>
                 </div>
+        </div>
             )}
         </div>
     );
