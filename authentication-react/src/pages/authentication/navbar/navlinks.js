@@ -20,12 +20,12 @@ export default function Navlinks(){
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul className="navbar-nav d-flex align-items-center justify-content-evenly mx-auto" >
         <li class="nav-item">
-            <Link class="nav-link" to="/">Home</Link>
+            <Link class="nav-link" to="/" style={{color:"white"}}>Home</Link>
         </li>
         {Array.isArray(links) && links.length > 0 ? (
           links.map((item) => (
-        <li class="nav-item dropdown text-light" key={item._id}>
-          <Link  to={`/${item.name}`} class="nav-link dropdown-toggle"  id={`${item.name}Dropdown`} role="button"  aria-expanded="false">
+        <li class="nav-item dropdown " key={item._id}>
+          <Link  to={`/${item.name}`} class="nav-link dropdown-toggle"  id={`${item.name}Dropdown`} role="button"  aria-expanded="false" style={{color:"white"}}>
           {item.name}
           </Link>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
