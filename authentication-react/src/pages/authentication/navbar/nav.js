@@ -6,11 +6,15 @@ import useTokenDecoder from '../jwt/useTokenDecoder';
 import images from "./img/gradient-instagram-shop-logo-template_23-2149704603.avif";
 import {BackEnd_url}  from '../../../constance';
 import Navlinks from './navlinks';
+import axios from 'axios';
+
 
 
 const NavBar = () => {
   const last =useRef()
   const { value, setValue } = useContext(Mycontext);
+  const [wishlist , setwishlist] = useState(0);
+  const [cart , setcart] = useState(0)
   const navigate = useNavigate();
 
 
@@ -60,6 +64,28 @@ function Top() {
 }
 }
 
+/// cart length
+useEffect(() => {
+  if (userid) {
+      axios.get(`${BackEnd_url}/api/cart/${userid}`, {
+          headers: {
+              'Authorization': `${localStorage.getItem("token")}`
+          }
+      })
+      .then(response => {
+        setcart(response.data.items);
+      })
+      .catch(error => {
+          console.log(error);
+          alert(error.response.data || "Failed to fetch products data.");
+      });
+  }
+}, [userid]);
+
+
+
+
+
 return (
 <>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -82,15 +108,20 @@ return (
     </div>
   </form>
 
+  
+
         <ul className="navbar-nav d-flex align-items-center col-4" >
           <li className="nav-item me-3 ">
             <Link to="/wishlist" className="nav-link text-dark ">
-              <i className="fas fa-heart"></i> Wishlist<span className="count">0</span>
+            <button type="button" class="btn btn-primary position-relative">
+            <i className="fas fa-heart"></i> Wishlist</button>
             </Link>
           </li>
           <li className="nav-item me-3 ">
             <Link to="/cart" className="nav-link text-dark ">
-              <i className="fas fa-cart-shopping"></i>Cart<span className="count">0</span>
+            <button type="button" class="btn btn-primary position-relative">
+            <i className="fas fa-cart-shopping"></i>Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{cart.length} <span class="visually-hidden">unread messages</span></span>
+</button>
             </Link>
           </li>
 

@@ -9,7 +9,7 @@ export default function Navlinks(){
         .then(res => res.json())
         .then(data => setlinks(data))
       },[]);
-      console.log(links)
+      
 
     return(
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
