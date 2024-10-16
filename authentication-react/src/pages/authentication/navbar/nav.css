@@ -1,4 +1,4 @@
-.navbar {
+/* .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -118,7 +118,7 @@ border-bottom: 2px solid #ccc;
 
 }
 
-/* Media Query for Small Screens */
+
 @media (max-width: 1024px) {
   .part3 {
     flex-direction: column;
@@ -129,15 +129,15 @@ border-bottom: 2px solid #ccc;
     background-color: white;
     border: 1px solid #ccc;
     width: 100%;
-    display: none; /* Hide by default */
+    display: none; 
   }
 
   .part3.collapsed {
-    display: flex; /* Show when not collapsed */
+    display: flex;
   }
 
   .navbar-toggler {
-    display: block; /* Show toggle button */
+    display: block; 
     background: none;
     border: none;
     cursor: pointer;
@@ -149,7 +149,7 @@ border-bottom: 2px solid #ccc;
   }
 
   .search-box input {
-    width: 100%; /* Full width on small screens */
+    width: 100%; 
   }
 }
 .topbtn{
@@ -168,6 +168,10 @@ border-bottom: 2px solid #ccc;
 
   
 }
+.dropdown:hover .dropdown-menu {
+  display: block;
+} */
+
 .dropdown:hover .dropdown-menu {
   display: block;
 }

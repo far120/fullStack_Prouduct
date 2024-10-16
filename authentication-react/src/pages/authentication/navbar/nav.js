@@ -5,22 +5,14 @@ import './nav.css';
 import useTokenDecoder from '../jwt/useTokenDecoder';
 import images from "./img/gradient-instagram-shop-logo-template_23-2149704603.avif";
 import {BackEnd_url}  from '../../../constance';
+import Navlinks from './navlinks';
 
 
 const NavBar = () => {
   const last =useRef()
   const { value, setValue } = useContext(Mycontext);
-  const [links , setlinks] = useState([])
   const navigate = useNavigate();
 
-
-// get category to be link
-
-  useEffect(() => {
-    fetch(`${BackEnd_url}/api/category`)
-    .then(res => res.json())
-    .then(data => setlinks(data))
-  },[]);
 
 // token image and role
   const userData = useTokenDecoder();
@@ -41,19 +33,14 @@ const NavBar = () => {
   if (localStorage.getItem('token') && value === "default value") {
     setValue(localStorage.getItem("token"));
   }
-  
-  const [isCollapsed, setIsCollapsed] = useState(true); // Add state for collapse
 
-  const toggleCollapse = () => {
-    setIsCollapsed(!isCollapsed); // Toggle the collapsed state
-  };
 
 //////////////////scroll ///////////////
 const [num , setnum] = useState(0);
 window.addEventListener('scroll', function handleScroll(){
     setnum(window.scrollY);
 }); 
-// console.log(num)
+console.log(num)
 useEffect(()=>{
     if(num>200)
     {
@@ -73,118 +60,120 @@ function Top() {
 }
 }
 
-  return (
-    <div className={`navbar-container  ${isCollapsed? 'collapsed' : ''}`}>
-    <nav className='navbar'>
-      <div className="logo">
+return (
+<>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container">
+  <div className="">
         <Link to="/">
-          <img src={images} alt="Logo" />
+          <img src={images} alt="Logo" style={{width:"200px" , height:"60px"}} />
         </Link>
       </div>
-      <div className="search-box">
-        <input type="text" placeholder="Search..." />
-        <button className="search-icon">
-          <i className="fas fa-search"></i>
-        </button>
-      </div>
-      <button className="navbar-toggler" onClick={toggleCollapse}>
-        <i className={`fas ${isCollapsed ? 'fa-bars' : 'fa-bars'}`}></i>
-      </button>
-      <div className={`part3 ${isCollapsed ? 'collapsed' : ''}`}>
-        <Link to="/wishlist" className="links">
-          <i className="fas fa-heart"></i> Wishlist<span className="count">0</span>
-        </Link>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <Link to="/cart" className="links">
-          <i className="fas fa-cart-shopping"></i> Cart<span className="count">0</span>
-        </Link>
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        
+      <form class="container-fluid">
+    <div class="input-group" >
+      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+      <span class="input-group-text" id="basic-addon1"><i className="fas fa-search"></i></span>
+    </div>
+  </form>
 
-        {!localStorage.getItem("token") ? (
-          <>
-            <Link to="/signup" className="btn btn-custom">Sign Up</Link>
-            <Link to="/login" className="btn btn-custom">Login</Link>
-          </>
-        ) : (
-          <div className="dropdown">
-          <Link
-            to="/" 
-            className="links dropdown-toggle"
-            role="button"
-            id="fashionDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-          >
-            <img
-              src={`${BackEnd_url}/images/uploads/${avatar}`}
-              alt="Profile"
-              className="profile-img"
-            />
-          </Link>
-          <div className="dropdown-menu" aria-labelledby="fashionDropdown">
-            <Link to="/profile" className="dropdown-item">My Profile</Link>
-            { window.localStorage.getItem('token') && role === 'adminserver' ?
+        <ul className="navbar-nav d-flex align-items-center col-4" >
+          <li className="nav-item me-3 ">
+            <Link to="/wishlist" className="nav-link text-dark ">
+              <i className="fas fa-heart"></i> Wishlist<span className="count">0</span>
+            </Link>
+          </li>
+          <li className="nav-item me-3 ">
+            <Link to="/cart" className="nav-link text-dark ">
+              <i className="fas fa-cart-shopping"></i>Cart<span className="count">0</span>
+            </Link>
+          </li>
+
+          {!localStorage.getItem("token") ? (
             <>
+              <li className="nav-item me-3">
+                <Link
+                  className="nav-link btn btn-primary text-light"
+                  aria-current="page"
+                  to="/signup"
+                >
+                  Sign up
+                </Link>
+              </li>
+              <li className="nav-item me-3">
+                <Link
+                  className="nav-link btn btn-primary text-light"
+                  aria-current="page"
+                  to="/login"
+                >
+                  Login
+                </Link>
+              </li>
+            </>
+          ) : (
+            <li className="nav-item dropdown">
+              <img
+                src={`${BackEnd_url}/images/uploads/${avatar}`}
+                className="img-fluid dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"
+                alt="..."
+                style={{ width: "80px", height: "80px", borderRadius: "50%" }}
+              />
+              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                <Link to="/profile" className="dropdown-item">My Profile</Link>
+                </li>
+                { window.localStorage.getItem('token') && role === 'adminserver' ?
+                <>
+            <li>
             <Link to="/auth" className="dropdown-item">Auth</Link>
+            </li>
+            <li>
             <Link to="/allproducts" className="dropdown-item">AllProducts</Link>
-
+            </li>
             </>
             :(
               null)}
-
-              { window.localStorage.getItem('token') &&( role === 'adminserver' || role === 'admin') ?
+        { window.localStorage.getItem('token') &&( role === 'adminserver' || role === 'admin') ?
             <>
+            <li>
             <Link to={`/addproduct/${userid}`} className="dropdown-item">Addproducts</Link>
+            </li><li>
             <Link to={`/myproducts`} className="dropdown-item">Myproducts</Link>
+            </li>
             </>
             :(
               null)}
-            <Link to={`/dashboard/${userid}`} className="dropdown-item">Dashboard</Link>
-            <Link to="/notifications" className="dropdown-item">Notifications</Link>
-            <Link to="/help" className="dropdown-item">Help</Link>
-            <button onClick={handleLogout} className="dropdown-item logout-btn">Logout</button>
-          </div>
-        </div>
-        )}
-      </div>
-      <hr />
-    </nav> 
-    <div className={`part2 ${isCollapsed ? 'collapsed' : ''}`}>
-      <div className="navlink">
-        <Link to="/" className="links">Home</Link>
-        {Array.isArray(links) && links.length > 0 ? (
-          links.map((item) => (
-            <div className="dropdown" key={item._id}>
-              <Link
-                to={`/${item.name}`}
-                className="links dropdown-toggle"
-                role="button"
-                id={`${item.name}Dropdown`}
-                aria-expanded="false"
-              >
-                {item.name}
-              </Link>
-              <ul className="dropdown-menu" aria-labelledby={`${item.name}Dropdown`}>
-                {item.subcategory.map((subcategory, index) => (
-                  <li key={index}>
-                    <Link className="dropdown-item" to={`/${item.name}/${subcategory}`}>
-                      {subcategory}
-                    </Link>
-                  </li>
-                ))}
+                <li>
+                <Link to={`/dashboard/${userid}`} className="dropdown-item">Dashboard</Link>
+                </li>
+                <li>
+                <Link to="/notifications" className="dropdown-item">Notifications</Link>
+                </li>
+                <li>
+                <Link to="/help" className="dropdown-item">Help</Link>
+                </li>
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                <button onClick={handleLogout} className="dropdown-item logout-btn">Logout</button>
+                </li>
               </ul>
-            </div>
-          ))
-        ) : (
-          <p>No links available</p>
-        )}
-       
+            </li>
+          )}
+        </ul>
       </div>
     </div>
     <button onClick={Top} ref={last} className="topbtn">
       <i className="fas fa-arrow-up"></i>
     </button>
-  </div>
-)
+  </nav>
+  <Navlinks />
+  </>
+);
 }
 
 export default NavBar;
