@@ -54,7 +54,7 @@ export default function Addproducts() {
         formData.append("description", product.description);
         formData.append("discount", product.discount);
         formData.append("stock", product.stock);
-        // formData.append("image", image);
+        formData.append("image", image);
 
         if (userid) {
             axios.post(`${BackEnd_url}/api/products/${userid}`, formData, {

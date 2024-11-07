@@ -235,12 +235,12 @@ return (
                     (
                         null
                     )}
-                     {review.user_id === userid  ? (
+                     {/* {review.user_id === userid  ? (
                         <button className="btn">Edit</button>       
                     ):
                     (
                         null
-                    )}
+                    )} */}
                     <hr />
                 </div>
                 

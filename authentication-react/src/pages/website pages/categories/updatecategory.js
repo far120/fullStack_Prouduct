@@ -69,7 +69,7 @@ export default function Updatecategory() {
         formData.append("discount", product.discount);
         formData.append("stock", product.stock);
         if (image instanceof File) {
-            // formData.append("image", image);
+            formData.append("image", image);
 
         }
 
@@ -99,7 +99,15 @@ return(
             <div style={{display:"flex", flexDirection:"column", justifyContent:"center" ,alignItems:"center" }}>
                 <input type="text" name="title" placeholder="Title" value={product.title} onChange={handleChange} />
                 <input type="number" name="price" placeholder="Price" value={product.price} onChange={handleChange} />
-                <input type="text" name="category" placeholder="Category" value={product.category} onChange={handleChange} />
+                {/* <input type="text" name="category" placeholder="Category" value={product.category} onChange={handleChange} /> */}
+                <div>
+                    <select name="category" value={product.category} onChange={handleChange}>
+                    <option value="" disabled>Select categoryname </option> 
+                    {categories.map((subcategory) => (
+                    <option key={subcategory} value={subcategory}>{subcategory}</option>
+                    ))}
+                    </select>
+                </div>
                 <input type="text"   name="subcategory" placeholder="subCategory"     value={product.subcategory}  onChange={handleChange}  />
                 <input type="text" name="description" placeholder="Description" value={product.description} onChange={handleChange} />
                 <input type="number" name="discount" placeholder="Discount" value={product.discount} onChange={handleChange} />

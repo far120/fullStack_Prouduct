@@ -88,7 +88,7 @@ useEffect(() => {
 
 return (
 <>
-  <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-light bg-secondary">
   <div class="container">
   <div className="">
         <Link to="/">
@@ -120,7 +120,7 @@ return (
           <li className="nav-item me-3 ">
             <Link to="/cart" className="nav-link text-dark ">
             <button type="button" class="btn btn-primary position-relative">
-            <i className="fas fa-cart-shopping"></i>Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary">{cart.length} <span class="visually-hidden">unread messages</span></span>
+            <i className="fas fa-cart-shopping"></i>Cart <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-secondary"> <span class="visually-hidden">unread messages</span></span>
 </button>
             </Link>
           </li>

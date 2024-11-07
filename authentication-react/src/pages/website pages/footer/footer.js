@@ -115,7 +115,7 @@ export default function Footer() {
                 </div>
 
                 <div className="text-center pt-3">
-                    <p className="text-gold">&copy; 2024 EGYPTIA ANTIQUE. All rights reserved.</p>
+                    <p className="text-gold">&copy;MOSTAFA ELFAR 2024. All rights reserved.</p>
                 </div>
             </div>
         </section>
