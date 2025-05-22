@@ -85,55 +85,52 @@ export default function Update() {
     }
 
     return (
-        <div className="back-image">
-            <img 
-                className="user-image" 
-                src={`${BackEnd_url}/images/uploads/${show}`} 
-                style={{ width: "200px", height: "250px", objectFit: "cover" }} 
-                alt="User Avatar" 
-            />
-
-            <div className="pa">
-                <form className="forms" onSubmit={handleSubmit}>
-                    <h2>Update User</h2>
-
+        <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100 py-10 px-2">
+            <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8 flex flex-col items-center">
+                <img 
+                    className="w-40 h-52 object-cover rounded-lg border-4 border-blue-200 mb-4" 
+                    src={`${BackEnd_url}/images/uploads/${show}`} 
+                    alt="User Avatar" 
+                />
+                <form className="space-y-6 w-full" onSubmit={handleSubmit}>
+                    <h2 className="text-2xl font-bold text-center text-blue-700 mb-4">Update User</h2>
                     {/* Role selection for adminserver */}
-                    <label>Role:</label>
-                    {role === "adminserver" ? (
-         <>
-      <select onChange={handleRoleChange} value={Role}>
-        <option  value={Role}>{Role}</option>
-        {Role === "adminserver" ? (
-    null
-    ) : Role === "admin" ? (
-     <option  value="user">User</option>
-    ) : (
-    <option  value="admin">Admin</option>
-)}
-      </select>
-        </>
-    ) :null}
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        value={name}
-                        id="name"
-                        onChange={handleNameChange}
-                    />
-                    <br />
-                    {accept && name === "" && <p className="error">Name is required</p>}
-
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        value={email}
-                        id="email"
-                        onChange={handleEmailChange}
-                    />
-                    <br />
-                    {accept && email === "" && <p className="error">Email is required</p>}
-
-                    <input type="submit" value="Update" />
+                    {role === "adminserver" && (
+                        <div>
+                            <label className="block text-gray-700 font-semibold mb-2">Role:</label>
+                            <select onChange={handleRoleChange} value={Role} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <option value={Role}>{Role}</option>
+                                {Role === "adminserver" ? null : Role === "admin" ? (
+                                    <option value="user">User</option>
+                                ) : (
+                                    <option value="admin">Admin</option>
+                                )}
+                            </select>
+                        </div>
+                    )}
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">Name:</label>
+                        <input
+                            type="text"
+                            value={name}
+                            id="name"
+                            onChange={handleNameChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        />
+                        {accept && name === "" && <p className="text-red-500 text-xs mt-1">Name is required</p>}
+                    </div>
+                    <div>
+                        <label className="block text-gray-700 font-semibold mb-2">Email:</label>
+                        <input
+                            type="email"
+                            value={email}
+                            id="email"
+                            onChange={handleEmailChange}
+                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                        />
+                        {accept && email === "" && <p className="text-red-500 text-xs mt-1">Email is required</p>}
+                    </div>
+                    <input type="submit" value="Update" className="w-full py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition cursor-pointer" />
                 </form>
             </div>
         </div>

@@ -33,41 +33,45 @@ export default function Dashboard() {
 
 
     return (
-        <div className="container mt-4">
-            <h1>Dashboard</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display error message */}
-            
-            {dashboard && dashboard.length > 0 && (
-                <div className="mt-4">
-                    <h2>Your Products:</h2>
-                    <div className="table-responsive">
-        <table className="table table-bordered table-hover mt-4">
-          <thead className="thead-light">
-                            <tr>
-                                <th>Date</th>
-                                <th>User ID</th>
-                                <th>User Name</th>
-                                <th>ID</th>
-                                <th>Product_ID</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {dashboard.map(item => (
-                                <tr key={item._id}>
-                                    <td>{new Date(item.createdAt).toLocaleString()}</td>
-                                    <td>{id}</td>
-                                    <td>{name}</td>
-                                    <td>{item._id}</td>
-                                    <Link to={`/product/${item.product}`}><td>{item.product}</td></Link>
-                                    <td>{item.actions}</td> 
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-blue-300 p-4">
+        <div className="max-w-6xl mx-auto bg-white/90 rounded-3xl shadow-2xl p-8 border border-blue-200 backdrop-blur-md">
+          <h1 className="text-4xl font-extrabold text-blue-900 text-center mb-8 tracking-tight drop-shadow-lg">Dashboard</h1>
+          {error && <p className="text-center text-red-600 font-semibold mb-4">{error}</p>}
+          {dashboard && dashboard.length > 0 ? (
+            <div className="overflow-x-auto">
+              <h2 className="text-2xl font-bold text-blue-800 mb-4">Your Products</h2>
+              <table className="min-w-full bg-white rounded-xl shadow-lg">
+                <thead>
+                  <tr className="bg-blue-100 text-blue-900">
+                    <th className="py-3 px-4">Date</th>
+                    <th className="py-3 px-4">User ID</th>
+                    <th className="py-3 px-4">User Name</th>
+                    <th className="py-3 px-4">ID</th>
+                    <th className="py-3 px-4">Product ID</th>
+                    <th className="py-3 px-4">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {dashboard.map(item => (
+                    <tr key={item._id} className="border-b hover:bg-blue-50">
+                      <td className="py-2 px-4">{new Date(item.createdAt).toLocaleString()}</td>
+                      <td className="py-2 px-4">{id}</td>
+                      <td className="py-2 px-4">{name}</td>
+                      <td className="py-2 px-4">{item._id}</td>
+                      <td className="py-2 px-4">
+                        <Link to={`/product/${item.product}`} className="text-blue-700 hover:underline">{item.product}</Link>
+                      </td>
+                      <td className="py-2 px-4">{item.actions}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : null}
+          {(!dashboard || dashboard.length === 0) && (
+            <h2 className="text-center text-xl text-gray-500 font-semibold py-16">No products found.</h2>
+          )}
         </div>
-            )}
-        </div>
+      </div>
     );
 }

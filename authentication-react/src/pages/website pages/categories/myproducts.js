@@ -44,82 +44,62 @@ export default function Myproducts() {
 
 
 
-    if (maincategories.length === 0) return <h1 style={{textAlign:"center"}}>No products.....</h1>; 
-
-    const mainCategoryList = maincategories.map(maincategory => (
-         maincategory.user_id == userid ?
-            (
-        <div  key={maincategory._id} style={{margin:"30px 0"}} >
-          
-            <div className="card" style={{width: "300px" , minHeight:"300px" ,backgroundColor:"#ccc"}}>
-            {maincategory.image == null ?
-                (
-                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/> 
-                ):
-                (
-
-                    <img src={`${BackEnd_url}/images/products/${maincategory.image}`} className="card-img-top imges" style={{  height:"200px" ,  width:"74%" , objectFit:"fill", alignSelf:"center"}} alt={maincategory.name}/>
-                )}
-  <div className="bodycard">
-  <p className="cardtitle">
-    {maincategory.title.length > 50 
-        ? `${maincategory.title.substring(0, 20)}...` 
-        : maincategory.title}
-</p>
-<p className="cardtitle">{maincategory.category}</p>
-<p className="cardtitle">{maincategory.subcategory}</p>
-
-<div className="aside_part3">
-  {Array.from({ length: 5 }, (_, index) => (
-    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
-      {maincategory.totalrating > index ? (
-        <i className="fa-solid fa-star"></i> 
-      ) : (
-        <i className="fa-regular fa-star"></i> // Empty star
-      )}
-    </span>
-  ))}
-</div>
-
-  
-    { maincategory.discount == 0 ?(
-    <p className="cardprice">Rs {maincategory.price}</p>
-    ) : (
-<div className="price">
-        <p className="cardprice"><del>Rs {maincategory.price}</del>      <span>Rs {maincategory.price - (maincategory.price * maincategory.discount / 100).toFixed(0)}</span></p>
-</div>
-    )}
-    <div className="abtn">
-        <p className="discount" >{maincategory.discount}%</p>
-    <Link to={`/product/${maincategory._id}`}><button className="btn btns" ><i class="fa-solid fa-eye"></i></button></Link>
-</div>
-
-
-<div className="abtn">
-  <button className="btn" onClick={()=>{remove(maincategory._id , userid)}} >Delete</button>
-  <Link to={`/product/${maincategory._id}/${userid}`}><button className="btn">Edit</button></Link>
-  </div>
-
-  </div>
-</div>
-        {/* </Link> */}
-        </div>
-            ):
-            (null)
-    ));
-
+    if (maincategories.length === 0) return <h1 className="text-center text-2xl font-bold text-gray-400 py-16">No products found.</h1>;
 
     return (
-        <div className="maincategories">
-            <div className="maincategories-part1">
-                <Aside/>
-            </div>
-            <div className="maincategories-part2">
-             <h1 style={{textAlign:"center"}}>App product</h1>
-                <div className="mycard">
-                {mainCategoryList}
+      <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-blue-300 px-2 md:px-8 py-10">
+        <main className="max-w-7xl mx-auto">
+          <h1 className="text-4xl font-extrabold text-center text-blue-900 mb-12 tracking-tight drop-shadow-lg">My Products</h1>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+            {maincategories.filter(maincategory => maincategory.user_id === userid).map(maincategory => (
+              <div key={maincategory._id} className="w-full max-w-xs bg-white/90 rounded-3xl shadow-xl hover:shadow-blue-200 transition flex flex-col items-center p-6 relative border border-blue-100 group mx-auto">
+                <div className="relative w-full flex justify-center">
+                  <img
+                    src={maincategory.image == null
+                      ? `${BackEnd_url}/images/products/image-1728556100619-300378618.webp`
+                      : `${BackEnd_url}/images/products/${maincategory.image}`}
+                    alt={maincategory.name}
+                    className="h-48 w-full object-cover rounded-xl mb-4 border-2 border-blue-200 group-hover:scale-105 transition-transform duration-300 shadow-md"
+                  />
+                  {maincategory.discount > 0 && (
+                    <span className="absolute top-2 left-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs px-3 py-1 rounded-full shadow-lg font-bold animate-pulse">{maincategory.discount}% OFF</span>
+                  )}
                 </div>
-            </div>
-        </div>
+                <div className="w-full flex-1 flex flex-col justify-between">
+                  <p className="text-lg font-bold text-blue-900 truncate mb-1 group-hover:text-purple-700 transition">{maincategory.title.length > 50 ? `${maincategory.title.substring(0, 20)}...` : maincategory.title}</p>
+                  <p className="text-xs text-gray-500 uppercase tracking-wider">{maincategory.category}</p>
+                  <p className="text-xs text-gray-400 mb-2">{maincategory.subcategory}</p>
+                  <div className="flex items-center mb-2">
+                    {Array.from({ length: 5 }, (_, index) => (
+                      <span key={index} className="text-yellow-400">
+                        {maincategory.totalrating > index ? (
+                          <i className="fa-solid fa-star"></i>
+                        ) : (
+                          <i className="fa-regular fa-star"></i>
+                        )}
+                      </span>
+                    ))}
+                  </div>
+                  {maincategory.discount === 0 ? (
+                    <p className="text-xl font-bold text-green-700">Rs {maincategory.price}</p>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <p className="text-gray-400 line-through">Rs {maincategory.price}</p>
+                      <span className="text-xl font-bold text-green-700">Rs {(maincategory.price - (maincategory.price * maincategory.discount / 100)).toFixed(0)}</span>
+                    </div>
+                  )}
+                  <div className="flex space-x-3 mt-4 justify-center">
+                    <Link to={`/product/${maincategory._id}`}><button className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 shadow transition" title="View Details"><i className="fa-solid fa-eye"></i></button></Link>
+                  </div>
+                  <div className="flex space-x-2 mt-3 justify-center">
+                    <button className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-xs font-semibold transition" onClick={() => { remove(maincategory._id, userid) }}>Delete</button>
+                    <Link to={`/product/${maincategory._id}/${userid}`}><button className="px-3 py-1 bg-yellow-400 text-black rounded hover:bg-yellow-500 text-xs font-semibold transition">Edit</button></Link>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </main>
+      </div>
     );
 }

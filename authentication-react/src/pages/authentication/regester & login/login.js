@@ -1,10 +1,10 @@
-import {  useEffect, useState , useContext } from 'react';
+import { useEffect, useState , useContext } from 'react';
 import { Mycontext } from './context';
 import { useNavigate } from 'react-router-dom';
-import './login.css';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import {BackEnd_url}  from '../../../constance';
+
 export default function Login() {
     const { value, setValue } = useContext(Mycontext);
     const navigate = useNavigate();
@@ -12,7 +12,6 @@ export default function Login() {
     const [password, setPassword] = useState("");
     const [show, setShow] = useState(false);
     const [accept, setAccept] = useState(false);
-
 
    async function handleSubmit(e) {
         e.preventDefault();
@@ -29,8 +28,6 @@ export default function Login() {
         )
         .then((response) => {
           setValue(response.data.token);
-            // Cookies.set('token', response.data.token, { expires: 7 });
-            // localStorage.setItem('token', response.data.token);
             navigate('/'); 
         })
         .catch((error) => {
@@ -40,49 +37,37 @@ export default function Login() {
     }
 }
 return (
-    <div className="back-image d-flex justify-content-center align-items-center vh-100">
-      <div className="card shadow-lg p-4" style={{ width: '400px' }}>
-        <form className="forms" onSubmit={handleSubmit}>
-          <h2 className="text-center mb-4">Login</h2>
-          
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-100">
+      <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+        <form className="space-y-6" onSubmit={handleSubmit}>
+          <h2 className="text-3xl font-bold text-center text-blue-700 mb-6">Login</h2>
           {/* Email Input */}
-          <div className="form-group mb-3">
-            <label htmlFor="email" className="form-label">Email:</label>
+          <div>
+            <label htmlFor="email" className="block text-gray-700 font-semibold mb-2">Email:</label>
             <input
               type="email"
               id="email"
-              className="form-control"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
               placeholder="Enter email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          
           {/* Password Input */}
-          <div className="form-group mb-3">
-            <label htmlFor="password" className="form-label">Password:</label>
+          <div>
+            <label htmlFor="password" className="block text-gray-700 font-semibold mb-2">Password:</label>
             <input
               type="password"
-              id="pass"
-              className="form-control"
-              placeholder="Enter your password"
+              id="password"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-  
-          {/* Error Message */}
-          {password.length < 8 && accept && (
-            <p className="text-danger">Password must be greater than 8 characters</p>
-          )}
-  
-          {/* Submit Button */}
-          <div className="text-center">
-            <input type="submit" value="Submit" className="btn btn-primary w-100" />
-          </div>
+          <button type="submit" className="w-full py-2 bg-blue-600 text-white rounded-lg font-bold hover:bg-blue-700 transition">Login</button>
         </form>
       </div>
     </div>
   );
-  
 }

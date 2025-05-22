@@ -158,185 +158,147 @@ if(!product || product.length === 0)
 }
 
 return (
-    <div className="product-page">
-        <div className="showpart1">
-            <div className="product-image">
-                
-            {product.image == null ?
-                (
-                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} alt={product.title} />
-                ):
-                (
-
-                    <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
-                )}
-                {/* Thumbnail images for selection */}
-                <div className="thumbnail-images">
-                {product.image == null ?
-                (
-                    <img src={`${BackEnd_url}/images/products/image-1728556100619-300378618.webp`} alt={product.title} />
-                ):
-                (
-
-                    <img src={`${BackEnd_url}/images/products/${product.image}`} alt={product.title} />
-                )}
-                    {/* Add more thumbnail images if needed */}
-                </div>
-            </div>
-            <div className="product-details">
-                <h1>{product.title}</h1>
-                <p >{product.category}</p>
-                <p>{product.subcategory}</p>
-                <p>Rating: {product.rating}<div className="aside_part3">
-  {Array.from({ length: 5 }, (_, index) => (
-    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
-      {product.totalrating > index ? (
-        <i className="fa-solid fa-star"></i> 
-      ) : (
-        <i className="fa-regular fa-star"></i> // Empty star
-      )}
-    </span>
-  ))}
-</div></p>
-<h3>Description:  {product.description.length > 50 
-        ? `${product.description.substring(0, 50)}...` 
-        : product.description} </h3>
-
-        
-               
-                {product.discount > 0 ? (
-                    <p className="price">
-                        <span className="original-price">Rs {product.price}</span>
-                        <span className="discounted-price">Rs {(product.price - (product.price * product.discount / 100)).toFixed(0)}</span>
-                        <span className="discount-percentage">{product.discount}%</span>
-                    </p>
+  <div className="min-h-screen bg-gradient-to-br from-blue-100 via-purple-100 to-blue-300 p-4">
+    <div className="max-w-5xl mx-auto bg-white/90 rounded-3xl shadow-2xl p-8 flex flex-col md:flex-row gap-10 border border-blue-200 backdrop-blur-md">
+      {/* Product Image and Details */}
+      <div className="flex-1 flex flex-col md:flex-row gap-8">
+        <div className="flex flex-col items-center md:items-start w-full md:w-1/2">
+          <img
+            src={product.image == null
+              ? `${BackEnd_url}/images/products/image-1728556100619-300378618.webp`
+              : `${BackEnd_url}/images/products/${product.image}`}
+            alt={product.title}
+            className="w-full w-400 h-96 object-contain rounded-2xl border-2 border-blue-200 shadow-md mb-4 bg-white"
+            style={{ background: '#fff', objectFit: 'contain' }}
+          />
+          <div className="flex gap-2 mt-2">
+            {/* Thumbnails (if you have more images, map here) */}
+            <img
+              src={product.image == null
+                ? `${BackEnd_url}/images/products/image-1728556100619-300378618.webp`
+                : `${BackEnd_url}/images/products/${product.image}`}
+              alt={product.title}
+              className="w-20 h-20 object-contain rounded-lg border border-blue-200 bg-white"
+              style={{ background: '#fff', objectFit: 'contain' }}
+            />
+          </div>
+        </div>
+        <div className="flex-1 flex flex-col justify-between">
+          <h1 className="text-3xl font-extrabold text-blue-900 mb-2">{product.title}</h1>
+          <p className="text-sm text-gray-500 uppercase tracking-wider mb-1">{product.category}</p>
+          <p className="text-xs text-gray-400 mb-2">{product.subcategory}</p>
+          <div className="flex items-center mb-2">
+            {Array.from({ length: 5 }, (_, index) => (
+              <span key={index} className="text-yellow-400">
+                {product.totalrating > index ? (
+                  <i className="fa-solid fa-star"></i>
                 ) : (
-                    <p className="price">Rs {product.price}</p>
+                  <i className="fa-regular fa-star"></i>
                 )}
-                <div className="quantity-control">
-                    <button className="add-to-cart" onClick={()=>addToCart()}>Add To Cart</button>
-                </div>
-                <div className="product-actions">
-                    <button className="compare-button btn">🔄</button>
-                    <button className="wishlist-button btn" onClick={()=>addToWishlist()} >❤️</button>
-                </div>
+              </span>
+            ))}
+            <span className="ml-2 text-sm text-blue-700">({product.rating || 0}/5)</span>
+          </div>
+          <h3 className="text-lg font-semibold text-blue-900 mb-2">Description</h3>
+          <p className="text-gray-700 mb-4">{product.description && (product.description.length > 100 ? `${product.description.substring(0, 100)}...` : product.description)}</p>
+          {product.discount > 0 ? (
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-gray-400 line-through text-lg">Rs {product.price}</span>
+              <span className="text-2xl font-bold text-green-700">Rs {(product.price - (product.price * product.discount / 100)).toFixed(0)}</span>
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xs px-3 py-1 rounded-full shadow font-bold animate-pulse">{product.discount}% OFF</span>
             </div>
+          ) : (
+            <span className="text-2xl font-bold text-green-700 mb-2">Rs {product.price}</span>
+          )}
+          <div className="flex gap-4 mt-4">
+            <button className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded-xl shadow transition" onClick={addToCart}>Add To Cart</button>
+            <button className="bg-pink-600 hover:bg-pink-800 text-white font-bold py-2 px-6 rounded-xl shadow transition" onClick={addToWishlist}>Add to Wishlist</button>
+            <button className="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold py-2 px-6 rounded-xl shadow transition">🔄 Compare</button>
+          </div>
         </div>
-        <div className="description-section">
-            <h3>Reviews ({reviews.length})</h3>
-            {reviews.map((review, index) => (
-                <div key={index} className="review">
-                    <p>🙍{review.username}</p>
-                    <p>Comment: {review.comment}</p>
-                    <p>Rating: {review.rating} / 5.0</p>
-                    {review.user_id === userid || role == 'adminserver' ? (
-                        <button className="btn" onClick={() => removeReview()}>Delete</button>        
-                    ):
-                    (
-                        null
-                    )}
-                     {/* {review.user_id === userid  ? (
-                        <button className="btn">Edit</button>       
-                    ):
-                    (
-                        null
-                    )} */}
-                    <hr />
-                </div>
-                
-            ))}
-            <button className="write-review" onClick={toggleReviewForm}>
-                {isReviewFormVisible ? "Cancel Review" : "Write a Review"}
-            </button>
-
-            {/* Review form visibility is controlled by the state */}
-            {isReviewFormVisible && (
-                <div className="write-review">
-                    <h4>Write a Review</h4>
-                    <form>
-                        <label htmlFor="rating">Rating:</label>
-                        <select id="rating" onChange={handleRating} >
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                        <label htmlFor="comment" >Comment:</label>
-                        <textarea id="comment" rows="4" cols="50" onChange={handelcomment}></textarea>
-                        <button onClick={handleSubmit} type="submit">Submit</button>
-                    </form>
-                </div>
-            )}
+      </div>
+      {/* Reviews Section */}
+      <div className="w-full mt-10">
+        <h3 className="text-2xl font-bold text-blue-900 mb-4">Reviews ({reviews.length})</h3>
+        <div className="space-y-6">
+          {reviews.map((review, index) => (
+            <div key={index} className="bg-blue-50 rounded-xl p-4 shadow flex flex-col md:flex-row md:items-center md:justify-between">
+              <div>
+                <p className="font-semibold text-blue-800">🙍 {review.username}</p>
+                <p className="text-gray-700">Comment: {review.comment}</p>
+                <p className="text-yellow-600">Rating: {review.rating} / 5.0</p>
+              </div>
+              <div className="flex gap-2 mt-2 md:mt-0">
+                {(review.user_id === userid || role === 'adminserver') && (
+                  <button className="bg-red-600 hover:bg-red-800 text-white px-4 py-1 rounded shadow text-xs font-semibold" onClick={removeReview}>Delete</button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-
-
-
-        <h3>Related Products:</h3>
-        <div className="related-products">
-            {related.map(maincategory => (
-                <div key={maincategory._id} style={{ margin: "30px 0" }}>
-                    
-                    <div className="card" style={{ width: "300px", minHeight: "300px", backgroundColor: "#ccc" }}>
-                        <img 
-                            src={`${BackEnd_url}/images/products/${maincategory.image}`} 
-                            className="card-img-top imges" 
-                            style={{ height: "200px", width: "74%", objectFit: "fill", alignSelf: "center" }} 
-                            alt={maincategory.title} 
-                        />
-                        <Link to={`/product/${maincategory._id}`} style={{textDecoration:"none"}}>
-                        <div className="bodycard" style={{ padding: "10px" }}>
-                            <p className="cardtitle">
-                                {maincategory.title.length > 50 
-                                    ? `${maincategory.title.substring(0, 20)}...` 
-                                    : maincategory.title}
-                            </p>
-                            <p className="cardtitle">{maincategory.category}</p>
-                            <p className="cardtitle">{maincategory.subcategory}</p>
-
-                            {/* Rating stars */}
-                            <div className="aside_part3" style={{ marginTop: "10px" }}>
-                                {Array.from({ length: 5 }, (_, index) => (
-                                    <span key={index} style={{ color: '#f39c12', cursor: 'default' }}>
-                                        {maincategory.totalrating > index ? (
-                                            <i className="fa-solid fa-star"></i>
-                                        ) : (
-                                            <i className="fa-regular fa-star"></i>
-                                        )}
-                                    </span>
-                                ))}
-                            </div>
-
-                            {/* Price and Discount logic */}
-                            <div className="price" style={{ marginTop: "10px" }}>
-                                {maincategory.discount === 0 ? (
-                                    <p className="cardprice">Rs {maincategory.price}</p>
-                                ) : (
-                                    <p className="cardprice">
-                                        <del>Rs {maincategory.price}</del>
-                                        <span style={{ marginLeft: "10px", color: "red" }}>
-                                            Rs {maincategory.price - (maincategory.price * maincategory.discount / 100).toFixed(0)}
-                                        </span>
-                                    </p>
-                                )}
-                            </div>
-                        </div>
-                    </Link>
-                    </div>
-                </div>
-            ))}
-        </div>
+        <button className="mt-6 bg-gradient-to-r from-blue-700 to-purple-700 hover:from-blue-900 hover:to-purple-900 text-white font-bold py-2 px-6 rounded-xl shadow-lg transition text-lg tracking-wide" onClick={toggleReviewForm}>
+          {isReviewFormVisible ? "Cancel Review" : "Write a Review"}
+        </button>
+        {isReviewFormVisible && (
+          <div className="mt-6 bg-white rounded-xl shadow-lg p-6">
+            <h4 className="text-lg font-bold text-blue-900 mb-2">Write a Review</h4>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+              <label htmlFor="rating" className="font-semibold text-blue-900">Rating:</label>
+              <select id="rating" value={rating} onChange={handleRating} className="rounded border border-blue-300 px-3 py-2">
+                {[1,2,3,4,5].map(val => <option key={val} value={val}>{val}</option>)}
+              </select>
+              <label htmlFor="comment" className="font-semibold text-blue-900">Comment:</label>
+              <textarea id="comment" rows="4" value={comment} onChange={handelcomment} className="rounded border border-blue-300 px-3 py-2" />
+              <button type="submit" className="bg-blue-700 hover:bg-blue-900 text-white font-bold py-2 px-6 rounded-xl shadow transition">Submit</button>
+            </form>
+          </div>
+        )}
+      </div>
     </div>
+    {/* Related Products */}
+    <div className="max-w-7xl mx-auto mt-16">
+      <h3 className="text-2xl font-bold text-blue-900 mb-6">Related Products</h3>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+        {related && related.map(maincategory => (
+          <div key={maincategory._id} className="bg-white/90 rounded-2xl shadow-xl p-5 flex flex-col items-center border border-blue-100">
+            <img
+              src={`${BackEnd_url}/images/products/${maincategory.image}`}
+              alt={maincategory.title}
+              className="h-56 w-56 object-contain rounded-xl mb-4 border-2 border-blue-200 bg-white"
+              style={{ background: '#fff', objectFit: 'contain', maxWidth: '100%' }}
+            />
+            <Link to={`/product/${maincategory._id}`} className="w-full">
+              <div className="w-full flex flex-col items-center">
+                <p className="text-lg font-bold text-blue-900 truncate mb-1">{maincategory.title.length > 50 ? `${maincategory.title.substring(0, 20)}...` : maincategory.title}</p>
+                <p className="text-xs text-gray-500 uppercase tracking-wider">{maincategory.category}</p>
+                <p className="text-xs text-gray-400 mb-2">{maincategory.subcategory}</p>
+                <div className="flex items-center mb-2">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <span key={index} className="text-yellow-400">
+                      {maincategory.totalrating > index ? (
+                        <i className="fa-solid fa-star"></i>
+                      ) : (
+                        <i className="fa-regular fa-star"></i>
+                      )}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex items-center space-x-2">
+                  {maincategory.discount === 0 ? (
+                    <span className="text-xl font-bold text-green-700">Rs {maincategory.price}</span>
+                  ) : (
+                    <>
+                      <span className="text-gray-400 line-through">Rs {maincategory.price}</span>
+                      <span className="text-xl font-bold text-green-700">Rs {(maincategory.price - (maincategory.price * maincategory.discount / 100)).toFixed(0)}</span>
+                    </>
+                  )}
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 );
 }
-
-{/* <div className="related-products">
-{related.map((relatedProduct, index) => (
-    <div key={index} className="related-product">
-        <img src={`${BackEnd_url}/images/products/${relatedProduct.image}`} alt={relatedProduct.title} />
-        <p>{relatedProduct.title}</p>
-        <p>Rs {relatedProduct.price}</p>
-        <p>In Stock</p>
-    </div>
-))}
-</div> */}
